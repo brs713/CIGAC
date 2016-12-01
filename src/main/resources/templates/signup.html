@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="template :: htmlhead">
+
+</head>
+
+<body>
+
+	<thblock th:replace="template :: header"></thblock>
+
+	<div class="container">
+		<div class="wrap">
+			<div class="center">
+
+				<form method="post">
+
+					<h6>Note: All Fields Required</h6>
+
+					<label for="name">UserID:</label> <br /> <input type="text"
+						name="username" th:value="${name}" />&nbsp;&nbsp;<span
+						class="error" th:text="${usrError}"></span> <br />
+					<p class="info" th:text="${usrGuideLength}"></p>
+					<p class="info" th:text="${usrGuideAllowed}"></p>
+
+					<label for="name">Password:</label> <br /> <input type="password"
+						name="password" />&nbsp;&nbsp;<span th:attr="class=${errClass}"
+						th:text="${pwdError}"></span> <br />
+					<p class="info" th:text="${pwdGuide}"></p>
+
+					<label for="name">Confirm Password:</label> <br /> <input
+						type="password" name="confPassword" />&nbsp;&nbsp;<span
+						class="error" th:text="${cnfError}"></span>
+					<br />
+					<label for="name">E-mail Address:</label> <br /> <input type="text"
+						name="email" th:value="${email}" />&nbsp;&nbsp;<span class="error"
+						th:text="${emlError}"></span> <br />
+					<button type="submit">Sign Up!</button>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

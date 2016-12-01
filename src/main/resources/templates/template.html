@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="htmlhead">
+
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+<meta content="utf-8" http-equiv="encoding" />
+
+
+<!-- Latest compiled JavaScript - JQuery, Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.1.1.js"
+	integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+	crossorigin="anonymous"></script>
+
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment-with-locales.js"
+	integrity="sha256-IynWwUNmYZCnqfX4udUybOBAGRWqntJpLr6c6Xqw3ek="
+	crossorigin="anonymous"></script>
+
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"
+	integrity="sha256-Cr6N6zNN4bp0OwTQOZ6Z66M2r+2dpy/EwKMCyZ+SOMg="
+	crossorigin="anonymous"></script>
+
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"
+	integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+	crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css"
+	integrity="sha256-fmMNkMcjSw3xcp9iuPnku/ryk9kaWgrEbfJfKmdZ45o="
+	crossorigin="anonymous" />
+
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"
+	integrity="sha256-p6xU9YulB7E2Ic62/PX+h59ayb3PBJ0WFTEQxq0EjHw="
+	crossorigin="anonymous" />
+
+
+
+<!-- My js & CSS files -->
+<script src="/js/js.js" th:href="@{js/js.js}"></script>
+<link rel="stylesheet" href="/css/climb.css" th:href="@{css/climb.css}" />
+
+<title>Can I Get A Catch?</title>
+
+</head>
+
+<body>
+	<thblock th:fragment="header"> <header></header>
+	<nav>
+
+		<div id="nav-wrap" class="container-fluid">
+			<div id="nav">
+				<span id="home-link"><a href="/" class="nav-link">Home</a>
+				</span>
+
+				<ul id="nav-ul">
+					<li class="nav-li"><a href="comm" class="nav-link"><span class="glyphicon glyphicon-envelope"></span></a></li>
+					<li id="nav-person" class="nav-li dropdown"><a href="#"
+						class="dropdown-toggle nav-link" data-toggle="dropdown" role="button">
+							<span class="glyphicon glyphicon-user"></span><span class="caret"></span>
+					</a>
+						<ul id="nav-person-dropdown" class="dropdown-menu"
+							style="right: 0">
+							<li><a href="profile.html">profile</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="logout.html">logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	
+	</thblock>
+</body>
+</html>

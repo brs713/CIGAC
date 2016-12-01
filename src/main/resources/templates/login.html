@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: htmlhead">
+
+</head>
+
+<body>
+
+	<thblock th:replace="template :: header"></thblock>
+
+	<div class="container">
+		<div class="wrap">
+			<div class="center">
+				<form method="post" style="display: inline-block">
+					<input name="username" value="Sarge" style="display: none" /> <input
+						name="password" value="fdsafdsa" style="display: none" />
+					<button class="btn btn-default" type="submit">Sarge</button>
+				</form>
+				<form method="post" style="display: inline-block">
+					<input name="username" value="Luna" style="display: none" /> <input
+						name="password" value="luna" style="display: none" />
+					<button class="btn btn-default" type="submit">Luna</button>
+				</form>
+				<form method="post" style="display: inline-block">
+					<input name="username" value="Buddy" style="display: none" /> <input
+						name="password" value="mewl" style="display: none" />
+					<button class="btn btn-default" type="submit">Buddy</button>
+				</form>
+				<hr />
+
+				<form method="post">
+
+					<h1>Log In</h1>
+					<br />
+					<div class="form-group" th:class="${usrError}? 'has-error'">
+						<label for="name" class="control-label">Username: <input
+							type="text" name="username" th:value="${name}"
+							class="form-control" /></label>&nbsp;&nbsp;<span
+							class="text-danger error" th:text="${usrError}"></span>
+					</div>
+					<p class="text-warning info" th:text="${usrGuide}"></p>
+
+					<div class="form-group" th:class="${pwdError}? 'has-error'">
+						<label for="name" class="control-label">Password: <input
+							type="password" name="password" class="form-control" /></label>&nbsp;&nbsp;<span
+							class="text-danger error" th:text="${pwdError}"></span>
+					</div>
+					<p class="text-warning info" th:text="${pwdGuide}"></p>
+					<br />
+
+					<button class="btn btn-primary" type="submit">Log In</button>
+
+					<p>
+						Don't have an account? <a href="signup.html" th:href="@{/signup}">Get
+							One</a>!
+					</p>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="climb-object">
+
+	<form method="post">
+		<div class="climblist-item-id" style="display: none" th:text="${climb.climb.getId()}"></div>
+		<div class="climblist-item-accepted" style="display: none" th:text="${climb.climb.isAccepted()}"></div>
+		
+		<div class="row">
+			<div class="col-xs-1"></div>
+
+			<div class="col-xs-1 climblist-item-date">
+				<span class="climblist-item-date-month" th:text="${climb.startMonth}"></span>
+				<br/>
+				<span class="climblist-item-date-date" th:text="${climb.startDate}"></span>
+			</div>
+			<div class="col-xs-1 climblist-item-day">
+				<span class="" th:text="${climb.startDay}"></span>
+			</div>
+			<div class="col-xs-2">
+				<span class="" th:text="start time"></span>
+				<br/>
+				<span class="" th:text="end time"></span>
+			</div>
+			<div class="col-xs-2">
+				<span class="climblist-item-starthour" th:text="${climb.startHour}"></span>:
+				<span class="climblist-item-startminute" th:text="${climb.startMinute}"></span>&nbsp;
+				<span class="climblist-item-startampm" th:text="${climb.startAmpm}"></span>
+				<br/>
+				<span class="climblist-item-endhour" th:text="${climb.endHour}"></span>:
+				<span class="climblist-item-endminute" th:text="${climb.endMinute}"></span>&nbsp;
+				<span class="climblist-item-endampm" th:text="${climb.endAmpm}"></span>
+			</div>
+			<div class="col-xs-4 climblist-item-location">
+				<span class="middle" th:text="${climb.location}"></span>
+			</div>
+			<div class="col-xs-1"></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4 climblist-item-name">
+				<span th:text="${climb.userInitiate.username}"></span>
+			</div>
+			<div class="col-xs-2">
+				<div class="accept-cancel-btn">
+					<input type="text" name="isAccepted" value="true" style="display: none"/>
+					<button type="submit" style="border: 3px solid red;">
+						<span class="glyphicon glyphicon-triangle-bottom"></span>
+					</button>
+				</div>
+			</div>
+			<div class="col-xs-4 climblist-item-name">
+				<span class="climblist-item-acceptor" th:text="(${climb.climb.getUserAcceptor().getUsername()}) == null ? 'unaccepted' : ${climb.climb.getUserAcceptor().getUsername()}"></span>
+			</div>
+		</div>
+		
+	</form>
+</th:block>
+</html>
