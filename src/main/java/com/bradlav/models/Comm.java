@@ -17,8 +17,6 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "communication")
 public class Comm extends AbstractEntity {
 	
-//	private final int messageId;
-//	private static int serialNumber;
 	private User fromUser;
 	private User toUser;
 	private Climb climb;
@@ -28,8 +26,6 @@ public class Comm extends AbstractEntity {
 	
 	public Comm(User fromUser, User toUser, Climb climb) {
 		super();
-//		incrementSerialNumber();
-//		this.messageId = serialNumber;
 		this.fromUser = fromUser;
 		this.toUser = toUser;
 		this.climb = climb;
@@ -43,14 +39,6 @@ public class Comm extends AbstractEntity {
 	
 	// GETTERS & SETTERS
 
-//	@Id
-//	@NotNull
-//	@GeneratedValue
-//	@Column(name = "messageId", unique = true)
-//	public int getMessageId() {
-//		return messageId;
-//	}
-	
 	
 	@NotNull
 	@ManyToOne
@@ -99,10 +87,6 @@ public class Comm extends AbstractEntity {
 		this.messageCreated = messageCreated;
 	}
 
-//	private static void incrementSerialNumber(){
-//		serialNumber ++;
-//	}
-	
 }
 
 

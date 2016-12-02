@@ -27,10 +27,7 @@ public interface ClimbDao extends CrudRepository<Climb, Integer> {
 	
 	List<Climb> findByUserAcceptor(User userAcceptor);
 	List<Climb> findByUserAcceptor(int uid);
-	
-	List<Climb> findByLocation(String location);
-	
+		
 	List<Climb> findByScheduledTime(Date scheduledTime);
-	
 
 }

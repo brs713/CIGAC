@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="loc-input">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+			<form id="loc-input-form" method="post">
+				<button>Gym / Crag switch</button>
+				<div th:if="${isGym} == true">
+				
+				
+				</div>
+				
+				<div th:if="${isGym} != true">
+					<h3>Steps For Inserting A New Climbing Location:</h3>
+					<p>1) Go to <a href="https://www.mountainproject.com/scripts/Search">Mountain Project</a>'s Advanced Search page.</p>
+					<img src="/img/mpsearch.png"/>
+					<p>2) Change "Search Everything" to "Areas."</p>
+					<p>3) Enter the location name into the search field and click the magnifying glass.</p>
+					<p class="subtext">You will redirected to:
+					<br/>  a) the Mountain Project page for that location - (if so, skip to step 5.)
+					<br/> b) a list of results.
+					<br/>4) Select your crag.</p>
+					<img src="/img/mplocation.png"/>
+					<p>5) On the location's main page, drag your mouse pointer from the upper left corner of the crag's name into the image box on the right.</p>
+					<p>6) Copy the selection and paste it into the text box below.  You should see the word "Event" pasted in.</p>
+					<textarea id="mp-user-copy"></textarea>
+					<button type="submit">7) Submit & Climb!</button><
+				</div>
+			</form>	
+		</div>
+	</div>
+
+
+</th:block>
+
+</html>

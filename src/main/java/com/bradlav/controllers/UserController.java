@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bradlav.models.Comm;
+import com.bradlav.models.Loc;
 import com.bradlav.models.Profile;
 import com.bradlav.models.User;
 
@@ -23,7 +24,7 @@ public class UserController extends AbstractController {
 
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	String location(HttpServletRequest request, Model model){
+	String getProfile(HttpServletRequest request, Model model){
 
 		// get this session's user & give it to the nav line
 		HttpSession thisSession = request.getSession();
@@ -55,11 +56,11 @@ public class UserController extends AbstractController {
 			model.addAttribute("boulderMax", boulderMax);
 		}
 
-		return "profile";
+		return "-profile";
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-	String locations(HttpServletRequest request, Model model) {
+	String postProfile(HttpServletRequest request, Model model) {
 		
 		// get this session's user & give it to the nav line
 		HttpSession thisSession = request.getSession();
@@ -179,19 +180,6 @@ TODO: //Validate mins are less than maxes.
 		User user = getUserFromSession(thisSession);
 		model.addAttribute("user_logged", user.getUsername());
 
-//		//GENERATE TEST DATA
-//		int numLoops = (int) (Math.random() * 4.0) + 3;
-//		for (int i = 0; i < numLoops; ++i) {
-//			int climbNum = (int) (Math.random() * 5.0) + 1;
-//			int fromUserNum = (int) (Math.random() * 3.0) + 1;
-//			int toUserNum = (int) (Math.random() * 3.0) + 1;
-//			System.out.println("\n\n\tclimb#: " + climbNum + "  &  user#: " + fromUserNum + "  &  toUser#: " + toUserNum + "\n");
-//			Climb climb = climbDao.findById(climbNum);
-//			User fromUser = userDao.findById(fromUserNum);
-//			User toUser = userDao.findById(toUserNum);
-//			Comm message = new Comm(fromUser, toUser, climb);
-//			commDao.save(message);
-//		}
 		
 		//THIS DOESN'T BELONG HERE; SOMETHING LIKE THIS WILL GO SOMEWHERE ELSE LATER TO CREATE A COMMUNICATION WHEN A CLIMB IS ACCEPTED
 //		List<Climb> climbs = climbDao.findByUserInitiate(user);
@@ -215,7 +203,7 @@ TODO: //Validate mins are less than maxes.
  			c.setTime(t);
 
  			String person = profileDao.findByUser(comm.getFromUser()).getName();
- 			String place = comm.getClimb().getLocation();
+ 			Loc place = comm.getClimb().getLoc();
  			String ampm = (c.get(Calendar.AM_PM)) == 0 ? "am" : "pm";
 
  			m += "<p>" + person + " agreed to climb with you at "

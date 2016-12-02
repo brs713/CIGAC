@@ -45,7 +45,7 @@
 
 <!-- My js & CSS files -->
 <script src="/js/js.js" th:href="@{js/js.js}"></script>
-<link rel="stylesheet" href="/css/climb.css" th:href="@{css/climb.css}" />
+<link rel="stylesheet" href="/css/css.css" th:href="@{css/css.css}" />
 
 <title>Can I Get A Catch?</title>
 
@@ -57,10 +57,13 @@
 
 		<div id="nav-wrap" class="container-fluid">
 			<div id="nav">
-				<span id="home-link"><a href="/" class="nav-link">Home</a>
-				</span>
+				<ul id="left-nav-ul">
+					<li class="nav-li"><a href="/" class="nav-link"><span class="glyphicon glyphicon-calendar"></span></a></li>
+					<li class="nav-li"><a href="search" class="nav-link"><span class="glyphicon glyphicon-search"></span></a></li>
+				</ul>
 
-				<ul id="nav-ul">
+				<ul id="right-nav-ul">
+					<li class="nav-li"><a href="post" class="nav-link"><span class="glyphicon glyphicon-plus"></span></a></li>
 					<li class="nav-li"><a href="comm" class="nav-link"><span class="glyphicon glyphicon-envelope"></span></a></li>
 					<li id="nav-person" class="nav-li dropdown"><a href="#"
 						class="dropdown-toggle nav-link" data-toggle="dropdown" role="button">

@@ -38,10 +38,10 @@ public class ClimbFormatter {
 		return this.climb.getUserAcceptor();
 	}
 
-	public String getLocation() {
-		return this.climb.getLocation();
+	public Loc getLoc() {
+		return this.climb.getLoc();
 	}
-
+	
 	public Date getScheduledTime() {
 		return this.climb.getScheduledTime();
 	}

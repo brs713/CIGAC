@@ -1,0 +1,93 @@
+
+
+/***  ------------------  ID's  ------------------  ***/
+
+#nav-wrap {
+	/* box-shadow: 0 10px 14px rgba(229,115,0,.25); */
+	border-bottom: 1px solid grey;
+	margin-bottom: 20px;
+}
+
+#nav {
+	height: 50px;
+	position: static;
+	font-size: 18px;
+}
+
+#left-nav-ul {
+	position: absolute;
+	left: 1%;
+	padding: 10px 15px;
+	font-size: 1.2em;
+}
+
+#right-nav-ul {
+	position: absolute;
+	right: 1%;
+}
+
+
+#nav-person-dropdown {
+	left: auto;
+	right: 0;
+}
+
+
+#links>li>a{
+	border-bottom: 1px solid #ff8000;
+}
+
+#links>li {
+	margin-bottom: 20px;
+}
+
+
+
+	
+/***  ------------------  CLASSES  ------------------  ***/
+
+.nav-li {
+	list-style: none;
+	display: list-item;
+	padding: 10px 15px;
+	position: relative;
+	float: left;	
+}
+
+.nav-li>a {
+    position: relative;
+    display: block;
+}
+
+
+/***  ------------------  TAGS  ------------------  ***/
+
+html {
+	font-family: "Neuzeit","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+body {
+    
+}
+
+
+header {
+}
+
+nav {
+	margin: 3px 0;
+}
+
+
+a {
+	color: gray;
+}
+
+a:hover, a:focus {
+    color: #ff8000;
+	text-decoration: none;
+}
+
+li {
+	list-style-type: none;
+}

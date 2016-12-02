@@ -18,7 +18,7 @@ public class Climb extends AbstractEntity {
 	
 	private User userInitiate;
 	private User userAcceptor;
-	private String location;
+	private Loc loc;
 	private Date scheduledTime;
 	private Date endTime;
 	private boolean isAccepted;
@@ -30,12 +30,12 @@ public class Climb extends AbstractEntity {
 	Calendar c = Calendar.getInstance();
 	String ampm;
 
-	public Climb(User userInitiate, User userAcceptor, String location, Date scheduledTime, Date endTime,
+	public Climb(Loc loc, User userInitiate, User userAcceptor, Date scheduledTime, Date endTime,
 			boolean isAccepted) {
 		super();
 		this.userInitiate = userInitiate;
 		this.userAcceptor = userAcceptor;
-		this.location = location;
+		this.loc = loc;
 		this.scheduledTime = scheduledTime;
 		this.endTime = endTime;
 		this.isAccepted = false;
@@ -65,15 +65,15 @@ public class Climb extends AbstractEntity {
 		this.userAcceptor = userAcceptor;
 	}
 	
-	@NotNull
-	@Column(name = "location")
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
+	@ManyToOne
+	public Loc getLoc() {
+		return loc;
 	}
 	
+	public void setLoc(Loc loc) {
+		this.loc = loc;
+	}
+		
 	@NotNull
 	@Column(name = "scheduledTime")//, insertable = false, updatable = false)
 	public Date getScheduledTime() {

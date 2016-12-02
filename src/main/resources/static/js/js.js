@@ -8,28 +8,40 @@ $(document).ready(function() {
 	 ***/
 
 	let now = new Date()
+	console.log("now is", now)
 
 	let copydate = new Date(now)
 
-	let populateDaynumbers = function(){
-		for (let i=0; i<13; ++i) {
+	let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		
+	let populateDaynumbers = function(range){
+		
+		copydate.setDate(copydate.getDate() - copydate.getDay());
+		
+		for (let i=0; i<range; ++i) {
 
-			$('#day'+i).text(copydate.getDate());
+			if (copydate.getDate() !== 1) { 
+				$('#day'+i).text(copydate.getDate());
+			}
+			else {
+				$('#day'+i).text(monthNames[copydate.getMonth()].charAt(0));
+			}
 			copydate.setDate(copydate.getDate() + 1);
 		} 
 	}
 	
-	populateDaynumbers();
-	console.log(now, copydate)
+	populateDaynumbers(13);
 	
+	
+	// BUTTON HANDLERS - NEXT, PREV
 	$('#next-week').find('button').click(function(){
-		populateDaynumbers();
+		populateDaynumbers(13);
 		console.log('clickup')
 	});
 
 	$('#prev-week').click(function(){
-		copydate.setDate(copydate.getDate() - 30);
-		populateDaynumbers();
+		copydate.setDate(copydate.getDate() - 20);
+		populateDaynumbers(13);
 		console.log('clickdown')
 	});
 
