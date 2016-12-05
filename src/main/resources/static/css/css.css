@@ -41,7 +41,14 @@
 	margin-bottom: 20px;
 }
 
-
+#custom-handle {
+	width: 3em;
+	height: 1.6em;
+	top: 50%;
+ 	margin-top: -.8em;
+	text-align: center;
+	line-height: 1.6em;
+}
 
 	
 /***  ------------------  CLASSES  ------------------  ***/
@@ -134,6 +141,12 @@
 	display: inline-block;
 	width: 65px;
 }
+
+.hidden {
+	display: none;
+}
+
+
 
 
 /***  ------------------  TAGS  ------------------  ***/

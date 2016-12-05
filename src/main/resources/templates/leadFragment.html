@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<section th:fragment="leadFragmentContent">
+	<h3>LEAD CLIMBING</h3>
+	<h4>I usually practice:</h4>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label for="leadMin">Min:</label> <select class="form-control"
+						name="leadMin" id="leadMin">
+						<option th:text="${leadMin} ? ((${leadMin} != -1) ? 'No Rating' : ' -Select- ')"></option>
+						<option th:selected="(${leadMin} == 1) ? 'selected'" value="1">5.5</option>
+						<option th:selected="(${leadMin} == 2) ? 'selected'" value="2">5.6</option>
+						<option th:selected="(${leadMin} == 3) ? 'selected'" value="3">5.7</option>
+						<option th:selected="(${leadMin} == 4) ? 'selected'" value="4">5.8</option>
+						<option th:selected="(${leadMin} == 5) ? 'selected'" value="5">5.9</option>
+						<option th:selected="(${leadMin} == 6) ? 'selected'" value="6">5.10a</option>
+						<option th:selected="(${leadMin} == 7) ? 'selected'" value="7">5.10b</option>
+						<option th:selected="(${leadMin} == 8) ? 'selected'" value="8">5.10c</option>
+						<option th:selected="(${leadMin} == 9) ? 'selected'" value="9">5.10d</option>
+						<option th:selected="(${leadMin} == 10) ? 'selected'" value="10">5.11a</option>
+						<option th:selected="(${leadMin} == 11) ? 'selected'" value="11">5.11b</option>
+						<option th:selected="(${leadMin} == 12) ? 'selected'" value="12">5.11c</option>
+						<option th:selected="(${leadMin} == 13) ? 'selected'" value="13">5.11d</option>
+						<option th:selected="(${leadMin} == 14) ? 'selected'" value="14">5.12+</option>
+					</select>
+				</div>
+				<div class="col-md-6 form-group">
+					<label for="leadMax">Max:</label> <select class="form-control"
+						name="leadMax" id="leadMax">
+						<option th:selected="(${leadMax} == 1) ? 'selected'" value="1">5.5</option>
+						<option th:selected="(${leadMax} == 2) ? 'selected'" value="2">5.6</option>
+						<option th:selected="(${leadMax} == 3) ? 'selected'" value="3">5.7</option>
+						<option th:selected="(${leadMax} == 4) ? 'selected'" value="4">5.8</option>
+						<option th:selected="(${leadMax} == 5) ? 'selected'" value="5">5.9</option>
+						<option th:selected="(${leadMax} == 6) ? 'selected'" value="6">5.10a</option>
+						<option th:selected="(${leadMax} == 7) ? 'selected'" value="7">5.10b</option>
+						<option th:selected="(${leadMax} == 8) ? 'selected'" value="8">5.10c</option>
+						<option th:selected="(${leadMax} == 9) ? 'selected'" value="9">5.10d</option>
+						<option th:selected="(${leadMax} == 10) ? 'selected'" value="10">5.11a</option>
+						<option th:selected="(${leadMax} == 11) ? 'selected'" value="11">5.11b</option>
+						<option th:selected="(${leadMax} == 12) ? 'selected'" value="12">5.11c</option>
+						<option th:selected="(${leadMax} == 13) ? 'selected'" value="13">5.11d</option>
+						<option th:selected="(${leadMax} == 14) ? 'selected'" value="14">5.12a</option>
+						<option th:selected="(${leadMax} == 15) ? 'selected'" value="15">5.12b</option>
+						<option th:selected="(${leadMax} == 16) ? 'selected'" value="16">5.12c</option>
+						<option th:selected="(${leadMax} == 17) ? 'selected'" value="17">5.12d</option>
+						<option th:selected="(${leadMax} == 18) ? 'selected'" value="18">5.13a</option>
+						<option th:selected="(${leadMax} == 19) ? 'selected'" value="19">5.13b</option>
+						<option th:selected="(${leadMax} == 20) ? 'selected'" value="20">5.13c</option>
+						<option th:selected="(${leadMax} == 21) ? 'selected'" value="21">5.13d</option>
+						<option th:selected="(${leadMax} == 22) ? 'selected'" value="22">5.14+</option>
+					</select>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+		<div class="col-md-4"></div>
+	</div>
+
+
+</section>
+
+</html>

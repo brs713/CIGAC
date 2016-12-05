@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<section th:fragment="boulderFragmentContent">
+	<h3>BOULDERING</h3>
+	<h4>I usually practice:</h4>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label for="boulderMin">Min:</label> <select class="form-control"
+						name="boulderMin" id="boulderMin">
+						<option th:text="${boulderMin} ? ((${boulderMin} != -1) ? 'No Rating' : ' -Select- ' )"></option>
+						<option th:selected="(${boulderMin} == 1) ? 'selected'" value="1">V0</option>
+						<option th:selected="(${boulderMin} == 2) ? 'selected'" value="2">V1</option>
+						<option th:selected="(${boulderMin} == 3) ? 'selected'" value="3">V2</option>
+						<option th:selected="(${boulderMin} == 4) ? 'selected'" value="4">V3</option>
+						<option th:selected="(${boulderMin} == 5) ? 'selected'" value="5">V4</option>
+						<option th:selected="(${boulderMin} == 6) ? 'selected'" value="6">V5</option>
+						<option th:selected="(${boulderMin} == 7) ? 'selected'" value="7">V6</option>
+						<option th:selected="(${boulderMin} == 8) ? 'selected'" value="8">V7</option>
+						<option th:selected="(${boulderMin} == 9) ? 'selected'" value="9">V8+</option>
+					</select>
+				</div>
+				<div class="col-md-6 form-group">
+					<label for="boulderMax">Max:</label> <select class="form-control"
+						name="boulderMax" id="boulderMax">
+						<option th:text="${boulderMax} ? ((${boulderMax} != -1) ? 'No Rating' : ' -Select- ' )"></option>
+						<option th:selected="(${boulderMax} == 1) ? 'selected'" value="1">V0</option>
+						<option th:selected="(${boulderMax} == 2) ? 'selected'" value="2">V1</option>
+						<option th:selected="(${boulderMax} == 3) ? 'selected'" value="3">V2</option>
+						<option th:selected="(${boulderMax} == 4) ? 'selected'" value="4">V3</option>
+						<option th:selected="(${boulderMax} == 5) ? 'selected'" value="5">V4</option>
+						<option th:selected="(${boulderMax} == 6) ? 'selected'" value="6">V5</option>
+						<option th:selected="(${boulderMax} == 7) ? 'selected'" value="7">V6</option>
+						<option th:selected="(${boulderMax} == 8) ? 'selected'" value="8">V7</option>
+						<option th:selected="(${boulderMax} == 9) ? 'selected'" value="9">V8</option>
+						<option th:selected="(${boulderMax} == 10) ? 'selected'" value="10">V9</option>
+						<option th:selected="(${boulderMax} == 11) ? 'selected'" value="11">V10+</option>
+					</select>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+		<div class="col-md-4"></div>
+	</div>
+		
+
+
+		
+</section>
+
+</html>

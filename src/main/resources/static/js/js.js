@@ -43,18 +43,8 @@ $(document).ready(function() {
 		let hours = now.getHours()
 		let minutes = now.getMinutes()
 		let seconds = now.getSeconds()
-		console.log("current time should be  -  " + hours + ":" + minutes + ":" + seconds);
-		let curtime = now.getTime()
-		curtime -= ((hours * 60 * 60 * 1000)+(minutes * 60 * 1000)+(seconds * 1000))
-		let startOfDay = new Date();
-		startOfDay.setTime(curtime)
-		let dt = startOfDay.getDate()
-		let hr = startOfDay.getHours()
-		let mn = startOfDay.getMinutes()
-		let sc = startOfDay.getSeconds()
-		console.log("date = " +dt+ "  hours is"+ hr + "  minutes" + mn + "  seconds" + sc)
-
-		let copydate = new Date(startOfDay)
+		let dayStart = now.getTime() - ((hours * 60 * 60 * 1000)+(minutes * 60 * 1000)+(seconds * 1000))
+		let copydate = new Date(dayStart)
 		let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		let populateDaynumbers = function(range){
 
@@ -272,10 +262,10 @@ $(document).ready(function() {
     
     
 	/***	
-	Modal Post Form Dat
+	Modal Post Form Date
 	 ***/
     
-    $('#post-climb-form button').click(function(e){
+    $('#submit-post').click(function(e){
     	e.preventDefault();
     	console.log("default prevented")
 

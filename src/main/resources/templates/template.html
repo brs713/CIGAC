@@ -41,6 +41,13 @@
 	integrity="sha256-p6xU9YulB7E2Ic62/PX+h59ayb3PBJ0WFTEQxq0EjHw="
 	crossorigin="anonymous" />
 
+<!--  jQuery UI -->
+<script src="/js/jquery-ui.min.js" th:href="@{js/jquery-ui.min.js}"></script>
+<link rel="stylesheet" href="/css/jquery-ui.min.css" th:href="@{css/jquery-ui.min.css}"></link>
+<link rel="stylesheet" href="/css/jquery-ui.structure.min.css" th:href="@{css/jquery-ui.structure.min.css}"></link>
+<link rel="stylesheet" href="/css/jquery-ui.theme.min.css" th:href="@{css/jquery-ui.theme.min.css}"></link>
+
+
 <!-- My js & CSS files -->
 <script src="/js/spinner.js" th:href="@{js/spinner.js}"></script>
 <link rel="stylesheet" href="/css/spinner.css" th:href="@{css/spinner.css}"></link>
@@ -95,7 +102,7 @@
 			<div class="modal-content">
 				<div class="my-calendar-control" id="post-calendar"></div>
 				<form id="post-climb-form" method="post">
-					<div class="row">
+<!-- 					<div class="row">
 						<div class="col-xs-12">
 							<label for="location">Where?</label>
 							<select name="location">
@@ -103,7 +110,7 @@
 							</select>
 						</div>
 					</div>
-
+ -->
 					<div class="row">
 						<div class="col-xs-5">
 							<label for="hour-spinner">What Time?</label> <br /> <span
@@ -134,7 +141,7 @@
 					</div>
 					<input id="selected-date" name="selected-date"
 						style="display: none;" />
-					<button type="button">Post Climb Request!</button>
+					<button id="submit-post" type="button">Post Climb Request!</button>
 				</form>
 			</div>
 		</div>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<section th:fragment="trFragmentContent">
+	<h3>TOP ROPE</h3>
+	<h4>I usually practice:</h4>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label for="trMin">Min:</label> <select class="form-control"
+						name="trMin" id="trMin">
+						<option th:text="${trMin} ? ((${trMin} != -1) ? 'No Rating' : ' -Select- ' )"></option>
+						<option th:selected="(${trMin} == 1) ? 'selected'" value="1">5.5</option>
+						<option th:selected="(${trMin} == 2) ? 'selected'" value="2">5.6</option>
+						<option th:selected="(${trMin} == 3) ? 'selected'" value="3">5.7</option>
+						<option th:selected="(${trMin} == 4) ? 'selected'" value="4">5.8</option>
+						<option th:selected="(${trMin} == 5) ? 'selected'" value="5">5.9</option>
+						<option th:selected="(${trMin} == 6) ? 'selected'" value="6">5.10a</option>
+						<option th:selected="(${trMin} == 7) ? 'selected'" value="7">5.10b</option>
+						<option th:selected="(${trMin} == 8) ? 'selected'" value="8">5.10c</option>
+						<option th:selected="(${trMin} == 9) ? 'selected'" value="9">5.10d</option>
+						<option th:selected="(${trMin} == 10) ? 'selected'" value="10">5.11a</option>
+						<option th:selected="(${trMin} == 11) ? 'selected'" value="11">5.11b</option>
+						<option th:selected="(${trMin} == 12) ? 'selected'" value="12">5.11c</option>
+						<option th:selected="(${trMin} == 13) ? 'selected'" value="13">5.11d</option>
+						<option th:selected="(${trMin} == 14) ? 'selected'" value="14">5.12+</option>
+					</select>
+				</div>
+				<div class="col-md-6 form-group">
+					<label for="trMax">Max:</label> <select class="form-control"
+						name="trMax" id="trMax">
+						<option th:text="${trMax} ? ((${trMax} != -1) ? 'No Rating' : ' -Select- ' )"></option>
+						<option th:selected="(${trMax} == 1) ? 'selected'" value="1">5.5</option>
+						<option th:selected="(${trMax} == 2) ? 'selected'" value="2">5.6</option>
+						<option th:selected="(${trMax} == 3) ? 'selected'" value="3">5.7</option>
+						<option th:selected="(${trMax} == 4) ? 'selected'" value="4">5.8</option>
+						<option th:selected="(${trMax} == 5) ? 'selected'" value="5">5.9</option>
+						<option th:selected="(${trMax} == 6) ? 'selected'" value="6">5.10a</option>
+						<option th:selected="(${trMax} == 7) ? 'selected'" value="7">5.10b</option>
+						<option th:selected="(${trMax} == 8) ? 'selected'" value="8">5.10c</option>
+						<option th:selected="(${trMax} == 9) ? 'selected'" value="9">5.10d</option>
+						<option th:selected="(${trMax} == 10) ? 'selected'" value="10">5.11a</option>
+						<option th:selected="(${trMax} == 11) ? 'selected'" value="11">5.11b</option>
+						<option th:selected="(${trMax} == 12) ? 'selected'" value="12">5.11c</option>
+						<option th:selected="(${trMax} == 13) ? 'selected'" value="13">5.11d</option>
+						<option th:selected="(${trMax} == 14) ? 'selected'" value="14">5.12a</option>
+						<option th:selected="(${trMax} == 15) ? 'selected'" value="15">5.12b</option>
+						<option th:selected="(${trMax} == 16) ? 'selected'" value="16">5.12c</option>
+						<option th:selected="(${trMax} == 17) ? 'selected'" value="17">5.12d</option>
+						<option th:selected="(${trMax} == 18) ? 'selected'" value="18">5.13a</option>
+						<option th:selected="(${trMax} == 19) ? 'selected'" value="19">5.13b</option>
+						<option th:selected="(${trMax} == 20) ? 'selected'" value="20">5.13c</option>
+						<option th:selected="(${trMax} == 21) ? 'selected'" value="21">5.13d</option>
+						<option th:selected="(${trMax} == 22) ? 'selected'" value="22">5.14+</option>
+					</select>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+		<div class="col-md-4"></div>
+	</div>
+		
+
+</section>
+
+</html>

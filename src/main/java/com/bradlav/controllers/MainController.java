@@ -86,7 +86,6 @@ public class MainController extends AbstractController {
 		Long durHourInput = Long.parseLong(request.getParameter("dur-hour-spinner"));
 		Long durMinuteInput = Long.parseLong(request.getParameter("dur-minute-spinner"));
 		
-		
  		if (ampm.equals("pm")) {
  			if (hourInput != 12) {
  				hourInput += 12;
@@ -101,6 +100,7 @@ public class MainController extends AbstractController {
 		hourInput *= 60 * 60 * 1000;
 		minuteInput *= 60 * 1000;
 		Date startTime = new Date(dateInput + hourInput + minuteInput);
+		System.out.println("\n\n\tstartTime = " + startTime);
 		
 		durHourInput *= 60 * 60 * 1000;
 		durMinuteInput *= 60 * 1000;
@@ -135,7 +135,7 @@ public class MainController extends AbstractController {
 		else {
 			model.addAttribute("user_logged", "lurker");
 		}
-		
+
 		// get data
 		List<User> users = userDao.findAll();
 		List<Profile> profiles = profileDao.findAll();

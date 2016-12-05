@@ -11,13 +11,21 @@
 		<div class="modal-dialog modal-sm" role="document">
 			<div id="filter-modal-content" class="modal-content">
 				<h4></h4>
-				<section></section>
+				<section id="x" class="my-calendar-control"></section>
+				<input id="selected-date" name="selected-date" style="display: none;"></input>
+				<span>
+					<button id="btn-after" class="hidden">afilter</button>
+					<button id="btn-before" class="hidden">bfilter</button>
+				</span>
 			</div>
 		</div>
 	</div>
-			
 
 	<div class="container">
+		<div class="row">
+			<div id="filter-bar" class="col-xs-12"><span>applied filters:</span></div>
+		</div>
+		<hr/>
 		<div class="row">
 			<div class="col-xs-3">
 				<div>Calendar</div>
@@ -42,29 +50,77 @@
 				</div>
 				<div id="date-filter">
 					<label>date range</label>
-					<div><button>after</button></div>
-					<div><button>before</button></div>
+					<div>
+						<button data-toggle="modal" data-target="#filter-modal">after</button>
+						<input id="after" type="text" value="" class="hidden"></input>
+					</div>
+					<div>
+						<button data-toggle="modal" data-target="#filter-modal">before</button>
+						<input id="before" type="text" value="" class="hidden"></input>
+					</div>
 				</div>
 				<div id="time-filter">
 					<label>time of day</label>
-					<div>after</div>
-					<div>before</div>
+					<div id="slider"></div>
+					<div>
+						<span>earliest:</span>
+						<span>
+							<input id="min-time" type="text" value="" class="hidden"></input>
+						</span>
+					</div>
+					<div>
+						<span>latest:</span>
+						<span>
+							<input id="max-time" type="text" value="" class="hidden"></input>
+						</span>
+					</div>
 				</div>
 				<div id="duration-filter">
 					<label>how long</label>
-					<div>min</div>
-					<div>max</div>
+					<div id="dur-slider"></div>
+					<div>
+						<span>earliest:</span>
+						<span>
+							<input id="dur-min" type="text" value="" class="hidden"></input>
+						</span>
+					</div>
+					<div>
+						<span>latest:</span>
+						<span>
+							<input id="dur-max" type="text" value="" class="hidden"></input>
+						</span>
+					</div>
 				</div>
 				<div id="location-filter">
 					<label>where</label>
 					<h5>show</h5>
-					<div>&nbsp;&nbsp;gyms (checkbox)</div>
-					<div>&nbsp;&nbsp;crags (checkbox)</div>
-					<div>locations (dropdown)</div>
+					<div>
+						<span>gyms:</span>
+						<span>
+							<input id="show-gyms" type="checkbox" checked="checked"></input>
+						</span>
+					</div>
+					<div>
+						<span>crags:</span>
+						<span>
+							<input id="show-crags" type="checkbox"></input>
+						</span>
+					</div>
+					<div>
+						<span>loc:</span>
+						<select name="location">
+							<option th:each="loc : ${locs}" th:text="${loc.locName}" />
+						</select>
+					</div>
 				</div>
 				<div id="climber-filter">
 					<label>who</label>
-					<div>climbers (dropdown)</div>
+					<div>
+						<select name="climber-list">
+							<option th:each="climber : ${climbers}" th:text="${climber.user.username}" />
+						</select>
+					</div>
+
 				</div>
 
 			</div>
