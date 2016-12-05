@@ -7,10 +7,78 @@
 
 	<thblock th:replace="template :: header"></thblock>
 
+	<div id="filter-modal" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-sm" role="document">
+			<div id="filter-modal-content" class="modal-content">
+				<h4></h4>
+				<section></section>
+			</div>
+		</div>
+	</div>
+			
+
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-8">
+			<div class="col-xs-3">
+				<div>Calendar</div>
+				<div>Locations</div>
+				<div>Climbers</div>
+				<hr/>
+				<div><h4>Filters</h4></div>
+				<label for="show-tabs">Show</label>
+				<div class="row">
+					<div class="col-md-3">
+						All
+					</div>
+					<div class="col-md-3">
+						Unfilled
+					</div>
+					<div class="col-md-3">
+						Filled
+					</div>
+					<div class="col-md-3">
+						Expired
+					</div>
+				</div>
+				<div id="date-filter">
+					<label>date range</label>
+					<div><button>after</button></div>
+					<div><button>before</button></div>
+				</div>
+				<div id="time-filter">
+					<label>time of day</label>
+					<div>after</div>
+					<div>before</div>
+				</div>
+				<div id="duration-filter">
+					<label>how long</label>
+					<div>min</div>
+					<div>max</div>
+				</div>
+				<div id="location-filter">
+					<label>where</label>
+					<h5>show</h5>
+					<div>&nbsp;&nbsp;gyms (checkbox)</div>
+					<div>&nbsp;&nbsp;crags (checkbox)</div>
+					<div>locations (dropdown)</div>
+				</div>
+				<div id="climber-filter">
+					<label>who</label>
+					<div>climbers (dropdown)</div>
+				</div>
+
+			</div>
 			
+			<div class="col-xs-9">
+				<div class="row search-main active">
+					<div class="my-calendar-control" id="climbs-calendar"></div>
+				</div>
+				<div class="row search-main">
+					
+				</div>
+				<div class="row search-main">
+					
+				</div>
 			</div>
 		</div>
 	</div>

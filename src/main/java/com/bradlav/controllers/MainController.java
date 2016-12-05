@@ -24,11 +24,97 @@ public class MainController extends AbstractController {
 
 	
 	/**
-	  HOMEPAGE - any method
+	  HOMEPAGE - get
 	*/
-	@RequestMapping(value = "/")
-	public String index(Model model){
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String homeGet(HttpServletRequest request, Model model){
+		
+		// get this session's user
+		HttpSession thisSession = request.getSession();
+		User user = getUserFromSession(thisSession);
+		if (user != null) {
+			model.addAttribute("user_logged", user.getUsername());			
+		}
+		else {
+			model.addAttribute("user_logged", "lurker");
+		}
+		
+		// get data
+		List<User> users = userDao.findAll();
+		List<Profile> profiles = profileDao.findAll();
+		List<Climb> climbList = climbDao.findAllByOrderByScheduledTimeAsc();
+		List<Loc> locs = locDao.findAll();
+//		List<Comm> comms = commDao.findAll();
+
+		// format climb output
+		List<ClimbFormatter> climbs = new ArrayList<ClimbFormatter>();
+		for (Climb climb : climbList) {
+			climbs.add(new ClimbFormatter(climb));
+		}
+		
+		//pass in data
+		model.addAttribute("users", users);
+		model.addAttribute("climbs", climbs);
+		model.addAttribute("profiles", profiles);
+		model.addAttribute("locs", locs);
+//		model.addAttribute("comms", comms);
+		
 		return "-home";
+	}
+	
+	/**
+	  HOMEPAGE - post
+	*/
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public String homePost(HttpServletRequest request, Model model){
+		
+		// get this session's user
+		HttpSession thisSession = request.getSession();
+		User user = getUserFromSession(thisSession);
+		if (user != null) {
+			model.addAttribute("user_logged", user.getUsername());			
+		}
+		else {
+			model.addAttribute("user_logged", "lurker");
+		}
+		
+		String loc = request.getParameter("location");
+		Long dateInput = Long.parseLong(request.getParameter("selected-date"));
+		Long hourInput = Long.parseLong(request.getParameter("hour-spinner"));
+		Long minuteInput = Long.parseLong(request.getParameter("minute-spinner"));
+		String ampm = request.getParameter("ampm");
+		Long durHourInput = Long.parseLong(request.getParameter("dur-hour-spinner"));
+		Long durMinuteInput = Long.parseLong(request.getParameter("dur-minute-spinner"));
+		
+		
+ 		if (ampm.equals("pm")) {
+ 			if (hourInput != 12) {
+ 				hourInput += 12;
+ 			}
+ 		}
+ 		else {
+ 			if (hourInput == 12) {
+ 				hourInput = (long) 0;
+ 			}
+ 		}
+
+		hourInput *= 60 * 60 * 1000;
+		minuteInput *= 60 * 1000;
+		Date startTime = new Date(dateInput + hourInput + minuteInput);
+		
+		durHourInput *= 60 * 60 * 1000;
+		durMinuteInput *= 60 * 1000;
+		Date endTime = new Date(startTime.getTime() + durHourInput + durMinuteInput);
+		
+		Climb climb = new Climb();
+		climb.setUserInitiate(user);
+		climb.setLoc(locDao.findByLocName(loc));
+		climb.setScheduledTime(startTime);
+		climb.setEndTime(endTime);
+//		climbDao.save(climb);
+		
+		return "-home";
+		
 	}
 	
 	
@@ -43,7 +129,12 @@ public class MainController extends AbstractController {
 		// get this session's user
 		HttpSession thisSession = request.getSession();
 		User user = getUserFromSession(thisSession);
-		model.addAttribute("user_logged", user.getUsername());
+		if (user != null) {
+			model.addAttribute("user_logged", user.getUsername());			
+		}
+		else {
+			model.addAttribute("user_logged", "lurker");
+		}
 		
 		// get data
 		List<User> users = userDao.findAll();

@@ -41,11 +41,12 @@
 	integrity="sha256-p6xU9YulB7E2Ic62/PX+h59ayb3PBJ0WFTEQxq0EjHw="
 	crossorigin="anonymous" />
 
-
-
 <!-- My js & CSS files -->
+<script src="/js/spinner.js" th:href="@{js/spinner.js}"></script>
+<link rel="stylesheet" href="/css/spinner.css" th:href="@{css/spinner.css}"></link>
 <script src="/js/js.js" th:href="@{js/js.js}"></script>
-<link rel="stylesheet" href="/css/css.css" th:href="@{css/css.css}" />
+<script src="/js/filters.js" th:href="@{js/filters.js}"></script>
+<link rel="stylesheet" href="/css/css.css" th:href="@{css/css.css}"></link>
 
 <title>Can I Get A Catch?</title>
 
@@ -58,30 +59,88 @@
 		<div id="nav-wrap" class="container-fluid">
 			<div id="nav">
 				<ul id="left-nav-ul">
-					<li class="nav-li"><a href="/" class="nav-link"><span class="glyphicon glyphicon-calendar"></span></a></li>
-					<li class="nav-li"><a href="search" class="nav-link"><span class="glyphicon glyphicon-search"></span></a></li>
+					<li class="nav-li"><a href="/" class="nav-link"><span
+							class="glyphicon glyphicon-calendar"></span></a></li>
+					<li class="nav-li"><a href="search" class="nav-link"><span
+							class="glyphicon glyphicon-search"></span></a></li>
 				</ul>
 
 				<ul id="right-nav-ul">
-					<li class="nav-li"><a href="post" class="nav-link"><span class="glyphicon glyphicon-plus"></span></a></li>
-					<li class="nav-li"><a href="comm" class="nav-link"><span class="glyphicon glyphicon-envelope"></span></a></li>
+					<li class="nav-li"><button type="button" class="nav-link"
+							data-toggle="modal" data-target=".post"
+							style="border: 0; background-color: inherit; color: inherit;">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button></li>
+					<li class="nav-li"><a href="comm" class="nav-link"><span
+							class="glyphicon glyphicon-envelope"></span></a></li>
 					<li id="nav-person" class="nav-li dropdown"><a href="#"
-						class="dropdown-toggle nav-link" data-toggle="dropdown" role="button">
-							<span class="glyphicon glyphicon-user"></span><span class="caret"></span>
+						class="dropdown-toggle nav-link" data-toggle="dropdown"
+						role="button"> <span class="glyphicon glyphicon-user"></span><span
+							class="caret"></span>
 					</a>
 						<ul id="nav-person-dropdown" class="dropdown-menu"
 							style="right: 0">
 							<li><a href="profile.html">profile</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="logout.html">logout</a></li>
-						</ul>
-					</li>
+						</ul></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	
-	
+
+
+	<div class="modal post" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="my-calendar-control" id="post-calendar"></div>
+				<form id="post-climb-form" method="post">
+					<div class="row">
+						<div class="col-xs-12">
+							<label for="location">Where?</label>
+							<select name="location">
+								<option th:each="loc : ${locs}" th:text="${loc.locName}" />
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-5">
+							<label for="hour-spinner">What Time?</label> <br /> <span
+								class="spinner timein"> <input id="hour-spinner"
+								type="text" value="2" name="hour-spinner" />
+							</span> <span
+								style="border: 3px solid white; padding: 0 0 0 0px; vertical-align: top;">:</span>
+							<span class="spinner timein"> <input id="minute-spinner"
+								type="text" value="" name="minute-spinner" />
+							</span> <span class="spinner" style="vertical-align: top;"> <input
+								id="ampm" type="text" value="pm" name="ampm"
+								style="border: none;"></input>
+							</span>
+						</div>
+						<div class="col-xs-2">
+							click<br />&amp;<br />spin
+						</div>
+						<div class="col-xs-5">
+							<label for="dur-hour-spinner">How Long?</label> <br /> <span
+								class="spinner"> <input id="dur-hour-spinner" type="text"
+								value="1" name="dur-hour-spinner" />
+							</span> <span
+								style="border: 3px solid white; padding: 0 0 0 0px; vertical-align: top;">:</span>
+							<span class="spinner"> <input id="dur-minute-spinner"
+								type="text" value="0" name="dur-minute-spinner"></input>
+							</span>
+						</div>
+					</div>
+					<input id="selected-date" name="selected-date"
+						style="display: none;" />
+					<button type="button">Post Climb Request!</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
 	</thblock>
 </body>
 </html>
