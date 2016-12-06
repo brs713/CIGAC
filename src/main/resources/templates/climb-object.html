@@ -4,6 +4,7 @@
 <th:block th:fragment="climb-object">
 
 	<form method="post">
+		<div><span>logged user:&nbsp;&nbsp;</span><span class="user-logged" style="display: inline-block" th:text="${user_logged}"></span></div>
 		<div class="climblist-item-id" style="display: none" th:text="${climb.climb.getId()}"></div>
 		<div class="climblist-item-accepted" style="display: none" th:text="${climb.climb.isAccepted()}"></div>
 		
@@ -19,9 +20,9 @@
 				<span class="" th:text="${climb.startDay}"></span>
 			</div>
 			<div class="col-xs-2">
-				<span class="" th:text="start time"></span>
+				<span class="" th:text="'start time'"></span>
 				<br/>
-				<span class="" th:text="end time"></span>
+				<span class="" th:text="'end time'"></span>
 			</div>
 			<div class="col-xs-2">
 				<span class="climblist-item-starthour" th:text="${climb.startHour}"></span>:
@@ -33,24 +34,30 @@
 				<span class="climblist-item-endampm" th:text="${climb.endAmpm}"></span>
 			</div>
 			<div class="col-xs-4 climblist-item-location">
-				<span class="middle" th:text="${climb.location}"></span>
+				<span class="middle" th:text="${climb.loc.locName}"></span>
 			</div>
 			<div class="col-xs-1"></div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4 climblist-item-name">
+			<div class="col-xs-4 climblist-item-name-init">
 				<span th:text="${climb.userInitiate.username}"></span>
 			</div>
 			<div class="col-xs-2">
 				<div class="accept-cancel-btn">
 					<input type="text" name="isAccepted" value="true" style="display: none"/>
-					<button type="submit" style="border: 3px solid red;">
-						<span class="glyphicon glyphicon-triangle-bottom"></span>
+					<input type="text" name="climbId" th:value="${climb.climb.getId()}" style="display: none" />
+
+ 					<button class="accept-climb" type="submit"  
+						th:disabled="
+ 						((${user_logged} != ${climb.userInitiate.username}) ? ((${climb.climb.isAccepted()} == true) ? (${user_logged} != ${climb.userAcceptor.username}))) ? 'disabled'">
+						<span th:class="((${user_logged} != ${climb.userInitiate.username}) ?
+						 (${climb.climb.isAccepted()} == false)) ?
+						   'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-remove-sign'"></span>
 					</button>
 				</div>
 			</div>
-			<div class="col-xs-4 climblist-item-name">
-				<span class="climblist-item-acceptor" th:text="(${climb.climb.getUserAcceptor().getUsername()}) == null ? 'unaccepted' : ${climb.climb.getUserAcceptor().getUsername()}"></span>
+			<div class="col-xs-4 climblist-item-name-accept">
+				<span class="climblist-item-acceptor" th:text="(${climb.climb.isAccepted()}) == false ? 'unaccepted' : ${climb.userAcceptor.username}"></span>
 			</div>
 		</div>
 		

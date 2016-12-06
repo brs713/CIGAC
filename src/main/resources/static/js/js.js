@@ -283,6 +283,6 @@ $(document).ready(function() {
     	$(this).attr('type', 'submit')
     	console.log($(this).attr('type'))
     	form.submit();
-    })    
+    })
     
 });

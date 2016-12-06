@@ -18,13 +18,13 @@ public class Loc extends AbstractEntity{
 	private String city;
 	private String state;
 	private int zip;
-	private int phone;
+	private String phone;
 	private String webAddress;
 	
 	
 	
 	public Loc(String locName, double longitude, double latitude, boolean isGym, String postalAddress, String city,
-			String state, int zip, int phone, String webAddress) {
+			String state, int zip, String phone, String webAddress) {
 		super();
 		this.locName = locName;
 		this.longitude = longitude;
@@ -142,14 +142,14 @@ public class Loc extends AbstractEntity{
 
 
 	@Column(name = "phone")
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
 
 
 	public void setPhone(String phone) {
-		this.phone = phoneFormatter(phone);
+		this.phone = phone;//phoneFormatter(phone);
 	}
 
 
@@ -164,8 +164,8 @@ public class Loc extends AbstractEntity{
 	}
 	
 	
-	private int phoneFormatter(String phone) {
-		int phoneInt = -1;
+	private String phoneFormatter(String phone) {
+		long phoneInt = -1;
 		phone = phone.trim();
 		int[] phoneDigits = new int[10];
 		int index = 0;
@@ -176,7 +176,7 @@ public class Loc extends AbstractEntity{
 		    	index++;
 		    }
 		}
-		return phoneInt;
+		return Long.toString(phoneInt);
 	}
 	
 }

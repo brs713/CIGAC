@@ -74,5 +74,25 @@ public class ClimbFormatter {
 		return (c.get(Calendar.AM_PM)) == 0 ? "am" : "pm";		
 	}
 
+	public String getEndMonth() {
+		return month.format(this.climb.getEndTime());
+	}
+	public String getEndDate() {
+		return date.format(this.climb.getEndTime());
+	}	
+	public String getEndDay() {
+		return day.format(this.climb.getEndTime());
+	}
+	public String getEndHour() {
+		return hour.format(this.climb.getEndTime());
+	}
+	public String getEndMinute() {
+		return minute.format(this.climb.getEndTime());
+	}
+	public String getEndAmpm() {
+		this.c.setTime(this.climb.getEndTime());
+		return (c.get(Calendar.AM_PM)) == 0 ? "am" : "pm";		
+	}
+
 	
 }

@@ -146,7 +146,11 @@
 	display: none;
 }
 
-
+button:disabled {
+	background-color: #eeeeee;
+	color: #dddddd;
+	border: 1px solid #dddddd;
+}
 
 
 /***  ------------------  TAGS  ------------------  ***/

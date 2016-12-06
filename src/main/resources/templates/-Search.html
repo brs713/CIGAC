@@ -126,14 +126,21 @@
 			</div>
 			
 			<div class="col-xs-9">
-				<div class="row search-main active">
+				<div class="row search-main active"> <!-- Calendar -->
 					<div class="my-calendar-control" id="climbs-calendar"></div>
 				</div>
-				<div class="row search-main">
+				<div class="row search-main hidden"> <!-- Locations -->
 					
 				</div>
-				<div class="row search-main">
+				<div class="row search-main hidden"> <!-- Climbers -->
 					
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<section th:each="climb,iterStat : ${climbs}" th:id="${iterStat.count}" >
+							<th:block th:replace="climb-object :: climb-object"></th:block>
+						</section>
+					</div>
 				</div>
 			</div>
 		</div>

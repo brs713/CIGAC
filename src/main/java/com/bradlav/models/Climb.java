@@ -46,7 +46,6 @@ public class Climb extends AbstractEntity {
 	
 	
 	// GETTERS & SETTERS
-	@NotNull
 	@ManyToOne
 	//@Column(name = "userInitiate")
 	public User getUserInitiate() {

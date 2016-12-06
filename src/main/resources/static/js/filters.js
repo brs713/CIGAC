@@ -127,4 +127,30 @@ $(document).ready(function(){
 	
 
 	
+	/**
+	 * Accepting a Climb!
+	 */
+		
+    $('.accept-climb').click(function(e){
+    	let fail = false;
+    	
+    	//if user logged == lurker
+    		//fail = true;
+    	
+    	//if user has another climb that overlaps this one
+    		//confirmation alert - if yes
+    			//fail = true
+    			//cancel other climb
+    	
+    	let form = $(this).parents('form');
+    	let userLogged = form.find('.user-logged').text()
+    	let userInitiator = form.find('.climblist-item-name-init').find('span').text()
+
+    	
+    	if (fail) {
+    		e.preventDefault();
+    	}
+    })
+	
+	
 });
