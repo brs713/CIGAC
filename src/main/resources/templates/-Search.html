@@ -35,20 +35,26 @@
 				<div><h4>Filters</h4></div>
 				<label for="show-tabs">Show</label>
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-3 display-filter df-active">
 						All
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 display-filter">
 						Unfilled
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 display-filter">
 						Filled
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 display-filter">
 						Expired
 					</div>
 				</div>
 				<div id="date-filter">
+<!-- 		
+
+		TODO - change to -when-, -where-, -who-, -how long-
+		
+		
+ -->
 					<label>date range</label>
 					<div>
 						<button data-toggle="modal" data-target="#filter-modal">after</button>
@@ -79,13 +85,13 @@
 					<label>how long</label>
 					<div id="dur-slider"></div>
 					<div>
-						<span>earliest:</span>
+						<span>shortest:</span>
 						<span>
 							<input id="dur-min" type="text" value="" class="hidden"></input>
 						</span>
 					</div>
 					<div>
-						<span>latest:</span>
+						<span>longest:</span>
 						<span>
 							<input id="dur-max" type="text" value="" class="hidden"></input>
 						</span>
@@ -95,21 +101,22 @@
 					<label>where</label>
 					<h5>show</h5>
 					<div>
-						<span>gyms:</span>
+						<span>in gyms:</span>
 						<span>
 							<input id="show-gyms" type="checkbox" checked="checked"></input>
 						</span>
 					</div>
 					<div>
-						<span>crags:</span>
+						<span>at crags:</span>
 						<span>
 							<input id="show-crags" type="checkbox"></input>
 						</span>
 					</div>
 					<div>
-						<span>loc:</span>
+						<span>loc:</span><br/>
 						<select name="location">
-							<option th:each="loc : ${locs}" th:text="${loc.locName}" />
+							<option value="0">include climbs at:</option>
+							<option th:each="loc,iterStat : ${locs}" th:value="${iterStat.count}" th:text="${loc.locName}" />
 						</select>
 					</div>
 				</div>
@@ -117,8 +124,10 @@
 					<label>who</label>
 					<div>
 						<select name="climber-list">
-							<option th:each="climber : ${climbers}" th:text="${climber.user.username}" />
+							<option value="0">include:</option>
+							<option th:each="user,iterStat : ${users}" th:value="${iterStat.count}" th:text="${user.username}" />
 						</select>
+						
 					</div>
 
 				</div>
@@ -137,7 +146,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-						<section th:each="climb,iterStat : ${climbs}" th:id="${iterStat.count}" >
+						<section th:each="climb,iterStat : ${climbs}" th:id="${iterStat.count}" class="climblist-form" >
 							<th:block th:replace="climb-object :: climb-object"></th:block>
 						</section>
 					</div>

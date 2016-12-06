@@ -45,11 +45,19 @@ public class ClimbFormatter {
 	public Date getScheduledTime() {
 		return this.climb.getScheduledTime();
 	}
+
+	public long getStartLong() {
+		return this.climb.getScheduledTime().getTime();
+	}
 	
 	public Date getEndTime() {
 		return this.climb.getEndTime();
 	}
 
+	public long getEndLong() {
+		return this.climb.getEndTime().getTime();
+	}
+	
 	public boolean isAccepted() {
 		return this.climb.isAccepted();
 	}

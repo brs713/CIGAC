@@ -233,6 +233,10 @@ public class MainController extends AbstractController {
 			climbs.add(new ClimbFormatter(climb));
 		}
 		
+		for (ClimbFormatter climb : climbs) {
+			System.out.println("\n\t" + climb.getStartLong() +"   " +climb.getEndLong() );
+		}
+		
 		//pass in data
 		model.addAttribute("users", users);
 		model.addAttribute("climbs", climbs);

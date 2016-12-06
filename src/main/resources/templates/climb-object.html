@@ -7,7 +7,9 @@
 		<div><span>logged user:&nbsp;&nbsp;</span><span class="user-logged" style="display: inline-block" th:text="${user_logged}"></span></div>
 		<div class="climblist-item-id" style="display: none" th:text="${climb.climb.getId()}"></div>
 		<div class="climblist-item-accepted" style="display: none" th:text="${climb.climb.isAccepted()}"></div>
-		
+		<div class="climblist-item-start-time" style="display: none" th:text="${climb.getStartLong()}"></div>
+		<div class="climblist-item-end-time" style="display: none" th:text="${climb.getEndLong()}"></div>
+		<div class="climblist-item-at-gym" style="display: none" th:text="${climb.loc.isGym()}"></div>
 		<div class="row">
 			<div class="col-xs-1"></div>
 
@@ -46,7 +48,6 @@
 				<div class="accept-cancel-btn">
 					<input type="text" name="isAccepted" value="true" style="display: none"/>
 					<input type="text" name="climbId" th:value="${climb.climb.getId()}" style="display: none" />
-
  					<button class="accept-climb" type="submit"  
 						th:disabled="
  						((${user_logged} != ${climb.userInitiate.username}) ? ((${climb.climb.isAccepted()} == true) ? (${user_logged} != ${climb.userAcceptor.username}))) ? 'disabled'">
