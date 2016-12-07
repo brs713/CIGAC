@@ -23,7 +23,11 @@
 
 	<div class="container">
 		<div class="row">
-			<div id="filter-bar" class="col-xs-12"><span>applied filters:</span></div>
+			<div class="col-xs-12">
+				<div id="filter-bar">
+					<span>applied filters:</span>
+				</div>
+			</div>
 		</div>
 		<hr/>
 		<div class="row">
@@ -58,11 +62,11 @@
 					<label>date range</label>
 					<div>
 						<button data-toggle="modal" data-target="#filter-modal">after</button>
-						<input id="after" type="text" value="" class="hidden"></input>
+						<input id="date-after" type="text" value="" class="hidden"></input>
 					</div>
 					<div>
 						<button data-toggle="modal" data-target="#filter-modal">before</button>
-						<input id="before" type="text" value="" class="hidden"></input>
+						<input id="date-before" type="text" value="" class="hidden"></input>
 					</div>
 				</div>
 				<div id="time-filter">
@@ -71,13 +75,13 @@
 					<div>
 						<span>earliest:</span>
 						<span>
-							<input id="min-time" type="text" value="" class="hidden"></input>
+							<input id="time-min" type="text" value="" class="hidden"></input>
 						</span>
 					</div>
 					<div>
 						<span>latest:</span>
 						<span>
-							<input id="max-time" type="text" value="" class="hidden"></input>
+							<input id="time-max" type="text" value="" class="hidden"></input>
 						</span>
 					</div>
 				</div>

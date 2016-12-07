@@ -2,19 +2,32 @@ $(document).ready(function(){
 	
 	console.log('working')
 
+//	let initVals = {};
+//	initVals['displayFilter'] = 'All';
+//	initVals['date-after'] = ['dateAfter', false]
+//	initVals['date-before'] = ['dateBefore', false],
+//	initVals['time-min'] = ['timeMin', false],
+//	initVals['time-max'] = ['timeMax', false],
+//	initVals['dur-min'] = ['durMin', false],
+//	initVals['dur-max'] = ['durMax', false],
+//	initVals['show-gyms'] = ['showGyms', true]
+//	initVals['show-crags'] = ['showCrags', false]
+//	initVals['locs-dropdown'] = ['locs', []]	//array
+//	initVals['climbers-dropdown'] = ['climbers', []]	//array
+	
 	let displayFilter = 'All';
-	let dateFilterAfter = false;
-	let dateFilterBefore = false;
-	let timeEarliest = false;
-	let timeLatest = false;
+	let dateAfter = false;
+	let dateBefore = false;
+	let timeMin = false;
+	let timeMax = false;
 	let durMin = false;
 	let durMax = false;
-	let inaGym = true;
-	let ataCrag = false;
+	let showGyms = true;
+	let showCrags = false;
 	let locs = [];	//array
 	let climbers = [];	//array
 	let now = new Date();
-	
+
 	
 	/**
 	 * Display - get filter criteria
@@ -25,7 +38,7 @@ $(document).ready(function(){
     	dfset.removeClass('df-active');
     	$(this).addClass('df-active');
     	displayFilter = $(this).text().trim();
-    	render();
+    	render(dfset.text());
     })
 	
 	
@@ -33,6 +46,8 @@ $(document).ready(function(){
 	 * Date - get filter criteria
 	 */
 	
+    // TODO - verify / rewrite Date - get filter criteria
+    
     let afterDate = 0;
 	let beforeDate = 0;
 	let aft = new Date();
@@ -46,7 +61,7 @@ $(document).ready(function(){
 		$('#btn-after').removeClass('hidden')
 		$('#btn-after').click(function (){
 			
-			dateFilterAfter = parseFloat($('#selected-date').val(), 10)
+			dateAfter = parseFloat($('#selected-date').val(), 10)
 			
 			// convert date from long to date
 			aft.setTime($('#selected-date').val())
@@ -65,9 +80,9 @@ $(document).ready(function(){
 //			}
 			
 			//TODO populate active filters with this info
-			$('#after').val(aftOutput).removeClass('hidden')					
+			$('#date-after').val(aftOutput).removeClass('hidden')
 			$(modal).modal('hide')
-			render()
+			render('date-after', aftOutput)
 		})	
 	});
 	
@@ -82,7 +97,7 @@ $(document).ready(function(){
 		$('#btn-before').removeClass('hidden')
 		$('#btn-before').click(function (){
 			
-			dateFilterBefore = parseFloat($('#selected-date').val(), 10)
+			dateBefore = parseFloat($('#selected-date').val(), 10)
 			
 			// convert date from long to date
 			bef.setTime($('#selected-date').val())
@@ -101,14 +116,15 @@ $(document).ready(function(){
 //			}
 			
 			//TODO populate active filters with this info
-			$('#before').val(befOutput).removeClass('hidden')
+			$('#date-before').val(befOutput).removeClass('hidden')
 			$(modal).modal('hide')
 			console.log("looping?")
-			render()
+		   	render('date-before', befOutput)
 		})	
 	});
 	
 
+	
 	/**
 	 * TimeOfDay - get filter criteria
 	 */
@@ -119,14 +135,14 @@ $(document).ready(function(){
 		  max: 24,
   });
 	
-	$('#slider').on( "slide", function( event, ui ) {
-		timeEarliest = $(this).slider( "option", "values" )[0];
-		timeLatest = $(this).slider( "option", "values" )[1];
-		$('#min-time').val(timeEarliest).removeClass('hidden');
-		$('#max-time').val(timeLatest).removeClass('hidden');
+	$('#slider').on('slide', function(event, ui) {
+		timeMin = $(this).slider('option', 'values')[0];
+		timeMax = $(this).slider('option', 'values')[1];
+		$('#time-min').val(timeMin).removeClass('hidden');
+		$('#time-max').val(timeMax).removeClass('hidden');
 		//TODO - map displayed values to o'clocks'
 		render()
-	} );
+	});
 
 	
 	
@@ -138,11 +154,11 @@ $(document).ready(function(){
 		  values: [0, 4],
 		  range: true,
 		  max: 24,
-  });
+	});
 	
-	$('#dur-slider').on( "slide", function( event, ui ) {
-		let left = $(this).slider( "option", "values" )[0];
-		let right = $(this).slider( "option", "values" )[1];
+	$('#dur-slider').on('slide', function(event, ui) {
+		let left = $(this).slider('option', 'values')[0];
+		let right = $(this).slider('option', 'values')[1];
 		$('#dur-min').val(left).removeClass('hidden');
 		$('#dur-max').val(right).removeClass('hidden');
 		//TODO - map displayed values to hours
@@ -159,25 +175,21 @@ $(document).ready(function(){
 	
 	$('#show-gyms').on('change', function(){ 
 		if ($('#show-gyms').prop('checked') == true) {
-			inaGym = true;
+			showGyms = true;
 		}
 		else {
-			inaGym = false;
-			console.log('flibberjibbets')
+			showGyms = false;
 		}
-		console.log('GYMCHANGED', inaGym)
 		render()
 	})
 	
 	$('#show-crags').on('change', function(){ 
 		if ($('#show-crags').prop('checked') == true) {
-
-			ataCrag = true;
+			showCrags = true;
 		}
 		else {
-			ataCrag = false;
+			showCrags = false;
 		}
-		console.log('Crag CHANGED', ataCrag)
 		render()
 	})
 		
@@ -188,7 +200,7 @@ $(document).ready(function(){
 		locs.push(option.text())
 		option.addClass('hidden')
 		$(this).val(0)
-		render()
+		render(option.text())
 	})
 	
 
@@ -203,12 +215,8 @@ $(document).ready(function(){
 		climbers.push(option.text())
 		option.addClass('hidden')
 		$(this).val(0)
-		render()
+		render(option.text())
 	})
-	
-	
-	
-	
 	
 	
 	
@@ -239,27 +247,70 @@ $(document).ready(function(){
 	
     
     
+	
+	/**
+	 * Filter Bar
+	 */
+   
+    let filterDivs = [ 
+    				"date-after",
+					"date-before",
+					"time-min",
+					"time-max",
+					"show-gyms",
+					"show-crags",
+					"locs-dropdown",
+					"climbers-dropdown",
+					"dur-min",
+					"dur-max" ]
+
+	let filterBar = $('#filter-bar')
+    
+	filterDivs.forEach(function(filter){
+		let elem = $('<div id="filter-bar-'+filter+'" style="display: inline-block" class="hidden")><a><span>[ X ]</span></a></div>')
+		filterBar.append(elem)
+	})
+	
+	// when you click on a div in the filter-bar
+	filterBar.find('div').click(function(){
+		$(this).addClass('hidden')
+		
+		if ($(this).attr('id') == 'filter-bar-date-after') {
+			dateAfter = false;
+			$('#date-after').addClass('hidden')
+		}
+		
+		if ($(this).attr('id') == 'filter-bar-date-before') {
+			dateBefore = false;
+			$('#date-before').addClass('hidden')
+		}
+		
+		render()
+	})
+		
+	let reset = function(varName){
+		let thing = initVals.indexOf(varName)
+		console.log("reset's thing is", thing)
+	}
+	
+	// apply filter action - shows the div
+    let applyFilter = function(filter, input){
+    	$('#filter-bar-'+filter).find('a').text("")   // TODO - MinorFix - this wipes out the <span>[X]</span>
+		$('#filter-bar-'+filter).find('a').prepend(input)
+		$('#filter-bar-'+filter).removeClass('hidden')
+	};
+	
+	
     
 	/**
 	 * APPLYING FILTERS
 	 */
     
 
-	let render = function(){
+	let render = function(filter,input){
     	
-/*    	console.log(displayFilter)
-    	console.log(dateFilterAfter)
-    	console.log(dateFilterBefore)
-    	console.log(timeEarliest)
-    	console.log(timeLatest)
-    	console.log(durMin)
-    	console.log(durMax)
-    	console.log(isGym)
-    	console.log(isCrag)
-    	console.log(locs)	//array
-    	console.log(climbers)	//array    	
-*/
-    	
+		applyFilter(filter, input);
+  	
     	// get all the climbs
     	let climbs = $('.climblist-form')
     	
@@ -302,26 +353,26 @@ $(document).ready(function(){
     		
     	//Note- anything < false = false, anything > false = true, so only worry about wrapping > below
 
-    		// --- dateFilterAfter ---//
-			if (climbTime < dateFilterAfter) {
+    		// --- dateAfter ---//
+			if (climbTime < dateAfter) {
 				show = false;
 			}
 
-			// --- dateFilterBefore ---//
-			if (dateFilterBefore) {
-				if (climbTime > dateFilterBefore) {
+			// --- dateBefore ---//
+			if (dateBefore) {
+				if (climbTime > dateBefore) {
 					show = false;
 				}
 			}
 
-			// --- timeEarliest ---//
-			if (starthour <= timeEarliest) {
+			// --- timeMin ---//
+			if (starthour <= timeMin) {
 				show = false;
 			}
 
-			// --- timeLatest ---//
-			if (timeLatest) {
-				if (starthour > timeLatest) {
+			// --- timeMax ---//
+			if (timeMax) {
+				if (starthour > timeMax) {
 					show = false;
 				}
 			}
@@ -338,21 +389,21 @@ $(document).ready(function(){
 				}
 			}
 			
-			// --- inaGym ---//
-			if (inaGym) {
-				if (!gymClimb && !ataCrag) {
+			// --- showGyms ---//
+			if (showGyms) {
+				if (!gymClimb && !showCrags) {
 					show = false;
 				}
 			}
-			if (!inaGym) {
-				if (!ataCrag) {
+			if (!showGyms) {
+				if (!showCrags) {
 					show = false;
 				}
 			}
 			
-			// --- ataCrag ---//
-			if (ataCrag) {
-				if (gymClimb && !inaGym) {
+			// --- showCrags ---//
+			if (showCrags) {
+				if (gymClimb && !showGyms) {
 					show = false;
 				}
 			}
