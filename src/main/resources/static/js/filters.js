@@ -18,10 +18,10 @@ $(document).ready(function(){
 	let displayFilter = 'All';
 	let dateAfter = false;
 	let dateBefore = false;
-	let timeMin = false;
-	let timeMax = false;
-	let durMin = false;
-	let durMax = false;
+	let timeMin = 0;
+	let timeMax = 24;
+	let durMin = 0;
+	let durMax;
 	let showGyms = true;
 	let showCrags = false;
 	let locs = [];	//array
@@ -35,12 +35,23 @@ $(document).ready(function(){
     
     let dfset = $('.display-filter')
     $('.display-filter').click(function() {
-    	dfset.removeClass('df-active');
-    	$(this).addClass('df-active');
     	displayFilter = $(this).text().trim();
-    	render(dfset.text());
+    	filterDisplay(displayFilter)
+    	if (displayFilter != "All") {  // because showing all records isn't filtering
+    		console.log("should apply filter here")
+    		applyFilter('display', displayFilter)// ???
+    	}
+    	else {
+    		$('#filter-bar-display').addClass('hidden')
+    		console.log('\t\t\thiding?')
+    	}
+    	render();
     })
-	
+
+    let filterDisplay = function(divText) {
+    	dfset.removeClass('df-active');
+    	$('.display-filter:contains('+divText+')').addClass('df-active');    
+    }
 	
 	/**
 	 * Date - get filter criteria
@@ -82,7 +93,9 @@ $(document).ready(function(){
 			//TODO populate active filters with this info
 			$('#date-after').val(aftOutput).removeClass('hidden')
 			$(modal).modal('hide')
-			render('date-after', aftOutput)
+			applyFilter('date-after', aftOutput+" ")  // ???
+			render()
+
 		})	
 	});
 	
@@ -119,7 +132,8 @@ $(document).ready(function(){
 			$('#date-before').val(befOutput).removeClass('hidden')
 			$(modal).modal('hide')
 			console.log("looping?")
-		   	render('date-before', befOutput)
+		   	applyFilter('date-before', befOutput+" ") // ???
+		   	render()
 		})	
 	});
 	
@@ -129,43 +143,58 @@ $(document).ready(function(){
 	 * TimeOfDay - get filter criteria
 	 */
 	
-	$('#slider').slider({
+	$('#time-slider').slider({
 		  values: [0, 24],
 		  range: true,
 		  max: 24,
   });
 	
-	$('#slider').on('slide', function(event, ui) {
-		timeMin = $(this).slider('option', 'values')[0];
-		timeMax = $(this).slider('option', 'values')[1];
-		$('#time-min').val(timeMin).removeClass('hidden');
-		$('#time-max').val(timeMax).removeClass('hidden');
+	$('#time-slider').on('slide', function(event, ui) {
+		
 		//TODO - map displayed values to o'clocks'
+		
+        var index = $(ui.handle).index();
+        	if (index == 1) { // left handle
+        		$('#time-min').val(ui.values[0]).removeClass('hidden');
+        		timeMin = ui.values[0]
+        		applyFilter('time-min', "Earliest: "+timeMin+" hrs ")
+        	}
+        	if (index == 2) { //right handle
+        		$('#time-max').val(ui.values[1]).removeClass('hidden');
+        		timeMax = ui.values[1]
+        		applyFilter('time-max', "Latest: "+timeMax+" hrs ")
+        	}
 		render()
 	});
-
 	
+
 	
 	/**
 	 * Duration - get filter criteria
 	 */
 	
 	$('#dur-slider').slider({
-		  values: [0, 4],
+		  values: [0, 24],
 		  range: true,
 		  max: 24,
 	});
 	
 	$('#dur-slider').on('slide', function(event, ui) {
-		let left = $(this).slider('option', 'values')[0];
-		let right = $(this).slider('option', 'values')[1];
-		$('#dur-min').val(left).removeClass('hidden');
-		$('#dur-max').val(right).removeClass('hidden');
+   		durMin = ui.values[0] *60*60*1000 -5000
+		durMax = ui.values[1] *60*60*1000 +5000
 		//TODO - map displayed values to hours
-		//TODO - convert these hours into long (*60*60*1000)
-		durMin = left *60*60*1000 -5000
-		durMax = right *60*60*1000 +5000
-		render()
+		
+        var index = $(ui.handle).index();
+    	if (index == 1) { // left handle
+    		$('#dur-min').val(ui.values[0]).removeClass('hidden');
+    		applyFilter('dur-min', "Shortest: "+durMin+" hrs ")
+     	}
+    	if (index == 2) { //right handle
+    		$('#dur-max').val(ui.values[1]).removeClass('hidden');
+    		applyFilter('dur-max', "Latest: "+durMax+" hrs ")
+    	}
+
+    	render()
 	} );
 
 	
@@ -176,6 +205,7 @@ $(document).ready(function(){
 	$('#show-gyms').on('change', function(){ 
 		if ($('#show-gyms').prop('checked') == true) {
 			showGyms = true;
+			applyFilter('show-gyms', "in Gyms ")
 		}
 		else {
 			showGyms = false;
@@ -253,6 +283,7 @@ $(document).ready(function(){
 	 */
    
     let filterDivs = [ 
+    				"display",
     				"date-after",
 					"date-before",
 					"time-min",
@@ -266,15 +297,25 @@ $(document).ready(function(){
 
 	let filterBar = $('#filter-bar')
     
+	// populate filter bar
 	filterDivs.forEach(function(filter){
 		let elem = $('<div id="filter-bar-'+filter+'" style="display: inline-block" class="hidden")><a><span>[ X ]</span></a></div>')
 		filterBar.append(elem)
 	})
 	
+	locsFiltered = []
+	climbersFiltered = []
+	
 	// when you click on a div in the filter-bar
 	filterBar.find('div').click(function(){
 		$(this).addClass('hidden')
 		
+		// display
+		if ($(this).attr('id') == 'filter-bar-display') {
+			filterDisplay("All")
+		}
+				
+		// date
 		if ($(this).attr('id') == 'filter-bar-date-after') {
 			dateAfter = false;
 			$('#date-after').addClass('hidden')
@@ -285,8 +326,49 @@ $(document).ready(function(){
 			$('#date-before').addClass('hidden')
 		}
 		
+		// time
+		if ($(this).attr('id') == 'filter-bar-time-min') {
+			timeMin = 0;
+			$('#time-slider').slider('option', 'values', [timeMin, timeMax])
+			$('#time-min').addClass('hidden')
+		}
+		
+		if ($(this).attr('id') == 'filter-bar-time-max') {
+			timeMax = 24;
+			$('#time-slider').slider('option', 'values', [timeMin, timeMax])
+			$('#time-max').addClass('hidden')
+		}
+		
+		// show-gyms
+		if ($(this).attr('id') == 'filter-bar-show-gyms') {
+			$('#show-gyms').prop('checked', 'false')
+		}
+		
+		// show-crags
+		if ($(this).attr('id') == 'filter-bar-show-crags') {
+			$('#show-crags').prop('checked', 'false')
+		}
+		
+		// duration
+		if ($(this).attr('id') == 'filter-bar-dur-min') {
+			durMin = 0 - 5000;
+			$('#dur-slider').slider('option', 'values', [0, durMax])
+			$('#dur-min').addClass('hidden')
+		}
+		if ($(this).attr('id') == 'filter-bar-dur-max') {
+			durMax = 24 *60*60*1000 +5000
+			$('#dur-slider').slider('option', 'values', [durMin, 24])
+			$('#dur-max').addClass('hidden')
+		}
+
 		render()
 	})
+	
+	// filter bar dropdowns - remove items
+
+	
+	// TODO reset locations
+	// TODO reset climbers
 		
 	let reset = function(varName){
 		let thing = initVals.indexOf(varName)
@@ -295,8 +377,9 @@ $(document).ready(function(){
 	
 	// apply filter action - shows the div
     let applyFilter = function(filter, input){
-    	$('#filter-bar-'+filter).find('a').text("")   // TODO - MinorFix - this wipes out the <span>[X]</span>
-		$('#filter-bar-'+filter).find('a').prepend(input)
+    	$('#filter-bar-'+filter).find('a').text("")
+    	let elem = $('<span>[x]</span>')
+		$('#filter-bar-'+filter).find('a').append(elem).prepend(input)
 		$('#filter-bar-'+filter).removeClass('hidden')
 	};
 	
@@ -307,9 +390,7 @@ $(document).ready(function(){
 	 */
     
 
-	let render = function(filter,input){
-    	
-		applyFilter(filter, input);
+	let render = function(){
   	
     	// get all the climbs
     	let climbs = $('.climblist-form')
@@ -321,8 +402,8 @@ $(document).ready(function(){
 			starthour = ($(this).find('.climblist-item-startampm').text().trim() == "pm") ? starthour + 12 : starthour;
 			let dur = (parseFloat($(this).find('.climblist-item-end-time').text(),10)) - climbTime
 			let gymClimb = ($(this).find('.climblist-item-at-gym').text().trim() == 'false') ? false : true;
-	//console.log("@gym?", gymClimb)
- 		
+
+			
     		// start with visibility
     		$(this).removeClass('hidden')
 
