@@ -1,20 +1,18 @@
 $(document).ready(function(){
-	
-	console.log('working')
 
-//	let initVals = {};
-//	initVals['displayFilter'] = 'All';
-//	initVals['date-after'] = ['dateAfter', false]
-//	initVals['date-before'] = ['dateBefore', false],
-//	initVals['time-min'] = ['timeMin', false],
-//	initVals['time-max'] = ['timeMax', false],
-//	initVals['dur-min'] = ['durMin', false],
-//	initVals['dur-max'] = ['durMax', false],
-//	initVals['show-gyms'] = ['showGyms', true]
-//	initVals['show-crags'] = ['showCrags', false]
-//	initVals['locs-dropdown'] = ['locs', []]	//array
-//	initVals['climbers-dropdown'] = ['climbers', []]	//array
+/* WISHLIST
+ * 
+ * Alert: "Crag Selected - Enabling 'show: Crags {checkbox}'" - only when not already selected
+ * 
+ * Error Div: "Neither gyms nor crags selected: no results will be displayed.
+ * 			  Please select 'show: Gyms {checkbox}' or 'show: Crags {checkbox}' to enable filtering.
+ * 		- then Highlight #show-gyms & #show-crags  
+ * 
+ */	
 	
+	
+	console.log('filters working')
+
 	let displayFilter = 'All';
 	let dateAfter = false;
 	let dateBefore = false;
@@ -27,7 +25,6 @@ $(document).ready(function(){
 	let locs = [];	//array
 	let climbers = [];	//array
 	let now = new Date();
-
 	
 	/**
 	 * Display - get filter criteria
@@ -38,12 +35,10 @@ $(document).ready(function(){
     	displayFilter = $(this).text().trim();
     	filterDisplay(displayFilter)
     	if (displayFilter != "All") {  // because showing all records isn't filtering
-    		console.log("should apply filter here")
-    		applyFilter('display', displayFilter)// ???
+    		applyFilter('display', displayFilter)
     	}
     	else {
     		$('#filter-bar-display').addClass('hidden')
-    		console.log('\t\t\thiding?')
     	}
     	render();
     })
@@ -93,7 +88,7 @@ $(document).ready(function(){
 			//TODO populate active filters with this info
 			$('#date-after').val(aftOutput).removeClass('hidden')
 			$(modal).modal('hide')
-			applyFilter('date-after', aftOutput+" ")  // ???
+			applyFilter('date-after', "After: "+aftOutput+" ")  // ???
 			render()
 
 		})	
@@ -132,7 +127,7 @@ $(document).ready(function(){
 			$('#date-before').val(befOutput).removeClass('hidden')
 			$(modal).modal('hide')
 			console.log("looping?")
-		   	applyFilter('date-before', befOutput+" ") // ???
+		   	applyFilter('date-before', "Before: "+befOutput+" ") // ???
 		   	render()
 		})	
 	});
@@ -205,10 +200,11 @@ $(document).ready(function(){
 	$('#show-gyms').on('change', function(){ 
 		if ($('#show-gyms').prop('checked') == true) {
 			showGyms = true;
-			applyFilter('show-gyms', "in Gyms ")
+			applyFilter('show-gyms', "Gyms ")
 		}
 		else {
 			showGyms = false;
+			$('#filter-bar-show-gyms').addClass('hidden')
 		}
 		render()
 	})
@@ -216,9 +212,11 @@ $(document).ready(function(){
 	$('#show-crags').on('change', function(){ 
 		if ($('#show-crags').prop('checked') == true) {
 			showCrags = true;
+			applyFilter('show-crags', "Crags ")
 		}
 		else {
 			showCrags = false;
+			$('#filter-bar-show-crags').addClass('hidden')
 		}
 		render()
 	})
@@ -230,7 +228,8 @@ $(document).ready(function(){
 		locs.push(option.text())
 		option.addClass('hidden')
 		$(this).val(0)
-		render(option.text())
+		applyDropdownFilter('locs-dropdown', locs)
+		render()
 	})
 	
 
@@ -240,12 +239,15 @@ $(document).ready(function(){
 	 */
 		
 	$('#climber-filter select').change(function(){
-		let chosen = $(this).val()
-		let option = $('#climber-filter option:selected')
-		climbers.push(option.text())
-		option.addClass('hidden')
+		let chosen = $(this).val()  //gets the index of the selected option
+		let option = $('#climber-filter option:selected') // gets the entire option element
+		console.log("this climber is chosen",chosen)
+		climbers.push(option.text()) // puts this climbers name in an array for filtering
+		console.log("climbers is",climbers)
+		option.addClass('hidden')  // hides this option
 		$(this).val(0)
-		render(option.text())
+		applyDropdownFilter('climbers-dropdown', climbers)
+		render()
 	})
 	
 	
@@ -290,18 +292,29 @@ $(document).ready(function(){
 					"time-max",
 					"show-gyms",
 					"show-crags",
-					"locs-dropdown",
-					"climbers-dropdown",
 					"dur-min",
 					"dur-max" ]
+	let filterDropdowns = [
+					"locs-dropdown",
+					"climbers-dropdown" ]
 
+	
 	let filterBar = $('#filter-bar')
     
 	// populate filter bar
 	filterDivs.forEach(function(filter){
-		let elem = $('<div id="filter-bar-'+filter+'" style="display: inline-block" class="hidden")><a><span>[ X ]</span></a></div>')
+		let elem = $('<div id="filter-bar-'+filter+'" style="display: inline-block" class="hidden")><a class="filtered-category"></a></div>')
 		filterBar.append(elem)
 	})
+
+	filterDropdowns.forEach(function(filter){
+		let elem = $('<div id="filter-bar-'+filter+'" style="display: inline-block" class="hidden")><select class="filtered-category"><option></option></select></div>')
+		filterBar.append(elem)
+	})
+	$('#filter-bar-locs-dropdown').find('option').text('-filtered locations-')
+	$('#filter-bar-climbers-dropdown').find('option').text('-filtered climbers-')
+	
+
 	
 	locsFiltered = []
 	climbersFiltered = []
@@ -341,12 +354,14 @@ $(document).ready(function(){
 		
 		// show-gyms
 		if ($(this).attr('id') == 'filter-bar-show-gyms') {
-			$('#show-gyms').prop('checked', 'false')
+			showGyms = false;
+			$('#show-gyms').prop('checked', false)
 		}
 		
 		// show-crags
 		if ($(this).attr('id') == 'filter-bar-show-crags') {
-			$('#show-crags').prop('checked', 'false')
+			showCrags = false;
+			$('#show-crags').prop('checked', false)
 		}
 		
 		// duration
@@ -360,11 +375,72 @@ $(document).ready(function(){
 			$('#dur-slider').slider('option', 'values', [durMin, 24])
 			$('#dur-max').addClass('hidden')
 		}
+				
+		if ($(this).attr('id') == 'filter-bar-locs-dropdown') {
+			$('#filter-bar-locs-dropdown').removeClass('hidden')
+		}
+		if ($(this).attr('id') == 'filter-bar-climbers-dropdown') {
+			$('#filter-bar-climbers-dropdown').removeClass('hidden')
+		}
 
 		render()
 	})
 	
 	// filter bar dropdowns - remove items
+	$('#filter-bar-locs-dropdown select').change(function(){
+		
+		// get selected option
+		let option = $('#filter-bar-locs-dropdown option:selected')
+
+		// truncate to remove " [x]"
+		let text = option.text().substring(0, (option.text().length)-4)
+
+		// find the element in the left filter list and show it
+		let element = $('#climber-filter option:contains('+text+')')
+		element.removeClass('hidden');
+		
+		// take this option off the filter-bar dropdown
+		option.remove()
+		
+		// drop this person from the array
+		let index = locs.indexOf(text)
+		locs.splice(index, 1)
+		
+		// if there are no more locs in the array, hide this dropdown
+		if (locs.length === 0) {
+			$('#filter-bar-locs-dropdown').addClass('hidden')
+		}			
+
+		render()
+	})
+
+
+	$('#filter-bar-climbers-dropdown select').change(function(){
+		
+		// get selected option
+		let option = $('#filter-bar-climbers-dropdown option:selected')
+
+		// truncate to remove " [x]"
+		let text = option.text().substring(0, (option.text().length)-4)
+
+		// find the element in the left filter list and show it
+		let element = $('#climber-filter option:contains('+text+')')
+		element.removeClass('hidden');
+		
+		// take this option off the filter-bar dropdown
+		option.remove()
+		
+		// drop this person from the array
+		let index = climbers.indexOf(text)
+		climbers.splice(index, 1)
+		
+		// if there are no more climbers in the array, hide this dropdown
+		if (climbers.length === 0) {
+			$('#filter-bar-climbers-dropdown').addClass('hidden')
+		}			
+
+		render()
+	})
 
 	
 	// TODO reset locations
@@ -375,14 +451,35 @@ $(document).ready(function(){
 		console.log("reset's thing is", thing)
 	}
 	
-	// apply filter action - shows the div
-    let applyFilter = function(filter, input){
+	// apply filter action - shows the div				//TODO - wishlist - add 3rd param "identifier" for "Shortest:", "Earliest:" etc.; refactor above to pass in identifiers  
+    let applyFilter = function(filter, input) {
     	$('#filter-bar-'+filter).find('a').text("")
-    	let elem = $('<span>[x]</span>')
+    	let elem = $('<span>[<span>x</span>]</span>')	//TODO - wishlist - "identifier" param - code <spans> for this below & style
 		$('#filter-bar-'+filter).find('a').append(elem).prepend(input)
 		$('#filter-bar-'+filter).removeClass('hidden')
 	};
+	applyFilter('show-gyms', "In Gyms ")
 	
+	// apply filter for dropdowns
+	let firstOpt
+	let applyDropdownFilter = function(filter, set) {	//TODO - wishlist - order these by ? - locid?, alphabet?
+		let drop = $('#filter-bar-'+filter).find('select')
+		let options = drop.find('option')
+		options.remove();
+		firstOpt;
+		if (set === climbers) {
+			firstOpt = $('<option>-climbers-</option>')
+		}
+		if (set === locs) {
+			firstOpt = $('<option>-locations-</option>')
+		}
+		drop.append(firstOpt)
+    	set.forEach(function(item) {
+    		let option = $('<option>'+item+' <span>[<span>x</span>]</span></option>')
+    		drop.append(option)
+    	})
+		$('#filter-bar-'+filter).removeClass('hidden')
+	}
 	
     
 	/**
@@ -528,6 +625,8 @@ $(document).ready(function(){
     	})
 		console.log("\t\t\t\t***rendered***");
 	}
+	
+	// page load.
     render();
 	
 });

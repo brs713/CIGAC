@@ -142,6 +142,21 @@
 	width: 65px;
 }
 
+.filtered-category, .filtered-category option {
+	color: #ff8000;
+	padding: 0 10px;
+}
+
+
+.filtered-category span {
+	color: grey;
+}
+
+.filtered-category span span {
+	color: #ff8000
+}
+
+
 .hidden {
 	display: none;
 }
