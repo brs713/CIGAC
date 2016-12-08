@@ -9,10 +9,48 @@ $(document).ready(function(){
  * 		- then Highlight #show-gyms & #show-crags  
  * 
  */	
-	
-	
-	console.log('filters working')
 
+
+	let mainSet = $('.main-filter-button')
+    $('.main-filter-button').click(function() {
+
+    	// hide content
+    	$('.search-main').addClass('hidden')
+    	$('.search-filters').addClass('hidden')
+    	    	
+    	// deactivate any other main-filter-button buttons
+    	mainSet.removeClass('main-active')
+    	
+    	// make this the active button
+    	$(this).addClass('main-active')
+    	
+    	// show requested content
+    	page = $(this).text().trim();
+    	    	
+    	switch (page) {
+    	case "Calendar":
+    		$('#cal-main').removeClass('hidden')
+    		$('#cal-filters').removeClass('hidden')
+    		break;
+    	case "Locations":
+    		$('#loc-main').removeClass('hidden')
+    		$('#loc-filters').removeClass('hidden')
+    		break;
+    	case "Climbers":
+    		$('#ppl-main').removeClass('hidden')
+    		$('#ppl-filters').removeClass('hidden')
+    		break;
+    	
+    	
+    	}
+    
+    })
+	
+
+	
+/*-----------------------------------------------------------------v-v-v-CAL-FILTERS-v-v-v-----------------------------------------------------------------*/	
+	
+	
 	let displayFilter = 'All';
 	let dateAfter = false;
 	let dateBefore = false;
@@ -32,6 +70,8 @@ $(document).ready(function(){
     
     let dfset = $('.display-filter')
     $('.display-filter').click(function() {
+
+    	// show this filter in the filter-bar, if applicable (not "All")
     	displayFilter = $(this).text().trim();
     	filterDisplay(displayFilter)
     	if (displayFilter != "All") {  // because showing all records isn't filtering
@@ -629,4 +669,57 @@ $(document).ready(function(){
 	// page load.
     render();
 	
+/*---------------------------------------v-v-v-LOC-FILTERS-v-v-v------^-^-^-CAL-FILTERS-^-^-^-----------------------------------------------------------*/
+ 
+    let setHover = function(index) {
+    	if (iconTypes[index]) {
+    		markerNames[index].setIcon(gymHoverIcon)        		 
+    	}
+    	else {
+    		markerNames[index].setIcon(cragHoverIcon)
+    	}
+    	markerNames[index].setZIndex(100);
+    }
+    
+    let clearHover = function(index) {
+    	if (iconTypes[index]) {
+    		markerNames[index].setIcon(gymIcon)        		 
+    	}
+    	else {
+    		markerNames[index].setIcon(cragIcon)
+    	}
+    	markerNames[index].setZIndex(0);
+    }
+
+    $('.loc').hover(function(){
+    	console.log($(this).text())
+    	let idx = $(this).index()
+    	setHover(idx)
+    }, function(){
+    	if (!$(this).hasClass('selected')) {
+    		let idx = $(this).index()
+    		clearHover(idx)
+    	}
+    })
+
+
+    $('.loc').click(function(){
+    	let idx = $(this).index()
+    	setHover(idx);
+    	let prevElemIndex = $('.selected').index()
+    	if (prevElemIndex !== -1) {
+    		clearHover(prevElemIndex)
+    	}
+    	$('.selected').removeClass('selected')
+    	$('.location').addClass('hidden')
+    	$(this).addClass('selected')
+    	$('#location'+idx).removeClass('hidden')
+    })
+
+    
+/*---------------------------------------v-v-v-PPL-FILTERS-v-v-v------^-^-^-LOC-FILTERS-^-^-^-----------------------------------------------------------*/    
+    
+    
+	console.log('filters js loaded')
+    
 });

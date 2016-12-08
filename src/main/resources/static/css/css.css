@@ -41,7 +41,7 @@
 	margin-bottom: 20px;
 }
 
-#custom-handle {
+#custom-handle {   /* for spinners */
 	width: 3em;
 	height: 1.6em;
 	top: 50%;
@@ -49,6 +49,31 @@
 	text-align: center;
 	line-height: 1.6em;
 }
+
+#mapwrap {
+	max-width: 600px;
+	min-height: 300px;
+	width: 100%;
+	height: auto;
+	border-radius: 5%;
+	position: static;
+}
+
+#map {
+	position: static;
+	max-width: 600px;
+	min-height: 300px;
+	background-color: grey;
+	width: 100%;
+	height: auto;
+	border-radius: 5%;
+	/* z-index: -1; */
+}
+
+.scrolloff {
+    pointer-events: none;
+}
+
 
 	
 /***  ------------------  CLASSES  ------------------  ***/
@@ -64,6 +89,37 @@
 .nav-li>a {
     position: relative;
     display: block;
+}
+
+.main-filter-button {
+	color: grey;
+	font-size: 1.1em;	
+	margin: 20px 50% 20px 20px;
+	padding: 10px;
+}
+
+.main-active {
+	font-size: 1.2em;
+	color: black;
+	border-left: 4px solid #ff8000;
+	border-bottom: 1px solid #ff8000;
+	border-radius: 7px;
+} 
+
+.loc-btn {
+	color: grey;
+	background-color: #dddddd;
+	font-size: .9em;
+	margin: 5px 5px;
+	padding: 3px 35px;
+	text-align: center;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+}
+
+.pressed {
+	background-color: #f3f3f3;
+	border: 1px solid #dddddd;
 }
 
 .my-calendar-control {
@@ -159,6 +215,10 @@
 
 .hidden {
 	display: none;
+}
+
+.invisible {
+	visibility:hidden;
 }
 
 button:disabled {

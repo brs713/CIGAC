@@ -285,4 +285,22 @@ $(document).ready(function() {
     	form.submit();
     })
     
+    
+    let cancelMapScroll = function(){
+        let mapwrap = $('#mapwrap');
+        let map = $('#map');
+
+        map.addClass('scrolloff');
+        mapwrap.on('click', function () {
+            map.toggleClass('scrolloff');
+        });
+
+        // re-enable scrolling on mouseleave
+        mapwrap.mouseleave(function () {
+            map.addClass('scrolloff'); // set the pointer events to none when mouse leaves the map area
+        });
+    }
+    cancelMapScroll()
+    
+    
 });

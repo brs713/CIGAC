@@ -12,8 +12,8 @@
 			<div id="filter-modal-content" class="modal-content">
 				<h4></h4>
 				<section id="x" class="my-calendar-control"></section>
-				<input id="selected-date" name="selected-date" style="display: none;"></input>
-				<span>
+				<input id="selected-date" name="selected-date"
+					style="display: none;"></input> <span>
 					<button id="btn-after" class="hidden">afilter</button>
 					<button id="btn-before" class="hidden">bfilter</button>
 				</span>
@@ -29,132 +29,239 @@
 				</div>
 			</div>
 		</div>
-		<hr/>
+		<hr />
 		<div class="row">
 			<div class="col-xs-3">
-				<div>Calendar</div>
-				<div>Locations</div>
-				<div>Climbers</div>
-				<hr/>
-				<div><h4>Filters</h4></div>
-				<label for="show-tabs">Show</label>
+
 				<div class="row">
-					<div class="col-md-3 display-filter df-active">
-						All
-					</div>
-					<div class="col-md-3 display-filter">
-						Unfilled
-					</div>
-					<div class="col-md-3 display-filter">
-						Filled
-					</div>
-					<div class="col-md-3 display-filter">
-						Expired
+					<div class="col-xs-12">
+						<div id="cal-search" class="main-filter-button main-active">Calendar</div>
+						<div id="loc-search" class="main-filter-button">Locations</div>
+						<div id="ppl-search" class="main-filter-button">Climbers</div>
 					</div>
 				</div>
-				<div id="date-filter">
-<!-- 		
+
+				<hr />
+
+				<div id="cal-filters" class="row search-filters">
+					<div class="col-xs-12">
+
+						<div>
+							<h4>Filters</h4>
+						</div>
+						<label for="show-tabs">Show</label>
+						<div class="row">
+							<div class="col-md-3 display-filter df-active">All</div>
+							<div class="col-md-3 display-filter">Unfilled</div>
+							<div class="col-md-3 display-filter">Filled</div>
+							<div class="col-md-3 display-filter">Expired</div>
+						</div>
+						<div id="date-filter">
+							<!-- 		
 
 		TODO - change to -when-, -where-, -who-, -how long-
 		
 		
  -->
-					<label>date range</label>
-					<div>
-						<button data-toggle="modal" data-target="#filter-modal">after</button>
-						<input id="date-after" type="text" value="" class="hidden"></input>
-					</div>
-					<div>
-						<button data-toggle="modal" data-target="#filter-modal">before</button>
-						<input id="date-before" type="text" value="" class="hidden"></input>
-					</div>
-				</div>
-				<div id="time-filter">
-					<label>time of day</label>
-					<div id="time-slider"></div>
-					<div>
-						<span>earliest:</span>
-						<span>
-							<input id="time-min" type="text" value="" class="hidden"></input>
-						</span>
-					</div>
-					<div>
-						<span>latest:</span>
-						<span>
-							<input id="time-max" type="text" value="" class="hidden"></input>
-						</span>
-					</div>
-				</div>
-				<div id="duration-filter">
-					<label>how long</label>
-					<div id="dur-slider"></div>
-					<div>
-						<span>shortest:</span>
-						<span>
-							<input id="dur-min" type="text" value="" class="hidden"></input>
-						</span>
-					</div>
-					<div>
-						<span>longest:</span>
-						<span>
-							<input id="dur-max" type="text" value="" class="hidden"></input>
-						</span>
-					</div>
-				</div>
-				<div id="location-filter">
-					<label>where</label>
-					<h5>show</h5>
-					<div>
-						<span>in gyms:</span>
-						<span>
-							<input id="show-gyms" type="checkbox" checked="checked"></input>
-						</span>
-					</div>
-					<div>
-						<span>at crags:</span>
-						<span>
-							<input id="show-crags" type="checkbox"></input>
-						</span>
-					</div>
-					<div>
-						<span>loc:</span><br/>
-						<select name="location">
-							<option value="0">include climbs at:</option>
-							<option th:each="loc,iterStat : ${locs}" th:value="${iterStat.count}" th:text="${loc.locName}" />
-						</select>
-					</div>
-				</div>
-				<div id="climber-filter">
-					<label>who</label>
-					<div>
-						<select name="climber-list">
-							<option value="0">include:</option>
-							<option th:each="user,iterStat : ${users}" th:value="${iterStat.count}" th:text="${user.username}" />
-						</select>
-						
-					</div>
+							<label>date range</label>
+							<div>
+								<button data-toggle="modal" data-target="#filter-modal">after</button>
+								<input id="date-after" type="text" value="" class="hidden"></input>
+							</div>
+							<div>
+								<button data-toggle="modal" data-target="#filter-modal">before</button>
+								<input id="date-before" type="text" value="" class="hidden"></input>
+							</div>
+						</div>
+						<div id="time-filter">
+							<label>time of day</label>
+							<div id="time-slider"></div>
+							<div>
+								<span>earliest:</span> <span> <input id="time-min"
+									type="text" value="" class="hidden"></input>
+								</span>
+							</div>
+							<div>
+								<span>latest:</span> <span> <input id="time-max"
+									type="text" value="" class="hidden"></input>
+								</span>
+							</div>
+						</div>
+						<div id="duration-filter">
+							<label>how long</label>
+							<div id="dur-slider"></div>
+							<div>
+								<span>shortest:</span> <span> <input id="dur-min"
+									type="text" value="" class="hidden"></input>
+								</span>
+							</div>
+							<div>
+								<span>longest:</span> <span> <input id="dur-max"
+									type="text" value="" class="hidden"></input>
+								</span>
+							</div>
+						</div>
+						<div id="location-filter">
+							<label>where</label>
+							<h5>show</h5>
+							<div>
+								<span>in gyms:</span> <span> <input id="show-gyms"
+									type="checkbox" checked="checked"></input>
+								</span>
+							</div>
+							<div>
+								<span>at crags:</span> <span> <input id="show-crags"
+									type="checkbox"></input>
+								</span>
+							</div>
+							<div>
+								<span>loc:</span><br /> <select name="location">
+									<option value="0">include climbs at:</option>
+									<option th:each="loc,iterStat : ${locs}"
+										th:value="${iterStat.count}" th:text="${loc.locName}" />
+								</select>
+							</div>
+						</div>
+						<div id="climber-filter">
+							<label>who</label>
+							<div>
+								<select name="climber-list">
+									<option value="0">include:</option>
+									<option th:each="user,iterStat : ${users}"
+										th:value="${iterStat.count}" th:text="${user.username}" />
+								</select>
 
+							</div>
+
+						</div>
+
+
+					</div>
 				</div>
+				<!-- end #cal-filters -->
+
+				<div id="loc-filters" class="row search-filters hidden">
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="col-xs-6">
+								<span id="gyms" class="loc-btn pressed">gyms</span>
+							</div>
+							<div class="col-xs-6">
+								<span id="crags" class="loc-btn">crags</span>
+							</div>
+						</div>
+
+						<hr />
+
+						<div class="row">
+							<div class="col-xs-12">
+
+								<section th:each="loc,iterStat : ${locs}"
+									th:id="'loc'+${iterStat.count}" class="loc" style="border: 1px solid #eeeeee;">
+									<p th:text="${loc.locName}"></p>
+								</section>
+
+<!-- 								<section th:each="loc,iterStat : ${locs}"
+									th:id="'loc'+${iterStat.count}" class="loc"
+									th:onmouseover="'hover('+${iterStat.count}+')'" th:onmouseout="'out'+${iterStat.count}+')'"
+									style="border: 1px solid #eeeeee;">
+									<p th:text="${loc.locName}"></p>
+								</section>
+ -->
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end #loc-filters -->
+
+
+				<div id="ppl-filters" class="row search-filters hidden">
+					<div class="col-xs-12">
+
+						<div>
+							<h4>Filters</h4>
+						</div>
+					</div>
+				</div>
+				<!-- end #ppl-filters -->
 
 			</div>
-			
+			<!-- END LEFT BAR (col-xs-3) -->
+
+
+
+			<!-- 
+
+   *****  MAIN CONTENT  *****
+
+ -->
+
 			<div class="col-xs-9">
-				<div class="row search-main active"> <!-- Calendar -->
+
+
+				<div id="cal-main" class="row search-main">
+					<!-- Calendar -->
 					<div class="my-calendar-control" id="climbs-calendar"></div>
-				</div>
-				<div class="row search-main hidden"> <!-- Locations -->
-					
-				</div>
-				<div class="row search-main hidden"> <!-- Climbers -->
-					
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<section th:each="climb,iterStat : ${climbs}" th:id="${iterStat.count}" class="climblist-form" >
-							<th:block th:replace="climb-object :: climb-object"></th:block>
-						</section>
+					<div class="row">
+						<div class="col-xs-12">
+							<section th:each="climb,iterStat : ${climbs}"
+								th:id="${iterStat.count}" class="climblist-form">
+								<th:block th:replace="climb-object :: climb-object"></th:block>
+							</section>
+						</div>
 					</div>
 				</div>
+
+
+
+				<div id="loc-main" class="row search-main invisible">
+					<!-- Locations -->
+					<div class="col-xs-12">
+
+						<div class="row">
+							<div class="col-xs-12">
+						
+								<div id="mapwrap">
+									<div id="map"></div>
+								</div>
+							</div>
+						</div>
+
+				
+					<script async="async" defer="defer" src="/js/map.js" th:href="@{js/map.js}"></script>
+					<script async="async" defer="defer"	src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCLNp25pNgiR7w4RvxOwS8ZF212b_j6UDw&amp;callback=initMap'></script>
+
+
+						<div class="row">
+							<div class="col-xs-12">
+								<section th:each="location,iterStat : ${locs}" th:id="'location'+(${iterStat.count} - 1)" class="location hidden"
+									style="border: 1px solid #eeeeee;">
+									<p class="loc-name " th:text="${location.locName}"></p>
+									<p class="lat hidden" th:text="${location.latitude}"></p>
+									<p class="lng hidden" th:text="${location.longitude}"></p>
+									<p class="isGym hidden" th:text="${location.gym}"></p>
+									<p class="addr" th:text="${location.postalAddress}"></p>
+									<p class="city" th:text="${location.city}"></p>
+									<p class="state hidden" th:text="${location.state}"></p>
+									<p class="zip hidden" th:text="${location.zip}"></p>
+									<p class="phone" th:text="${location.phone}"></p>
+									<p class="webAddress" ><a th:href="'http://'+${location.webAddress}" th:text="${location.webAddress}"></a></p>
+									<p th:if="${location.gym} != true" th:text="'latitude:   '+${location.latitude}"></p>
+									<p th:if="${location.gym} != true" th:text="'longitude:  '+${location.longitude}"></p>
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div id="ppl-main" class="row search-main hidden">
+					<!-- Climbers -->
+
+				</div>
+
+
 			</div>
 		</div>
 	</div>
