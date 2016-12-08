@@ -13,10 +13,12 @@ let hoverIcon = "http://labs.google.com/ridefinder/images/mm_20_gray.png"
 let gym = "g"
 let crag = "c"
 	
-let gymIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+gym+'|004000|f3f3f3'
-let cragIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+crag+'|602000|f3f3f3'
-let gymHoverIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+gym+'|ffd700|333333'
-let cragHoverIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+crag+'|ffd700|333333'
+let gymIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+gym+'|004000|f0f0f0'
+let cragIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+crag+'|602000|f0f0f0'
+let gymHoverIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+gym+'|307000|fdfdfd'
+let cragHoverIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+crag+'|905000|fdfdfd'
+let gymSelectedIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+gym+'|5682a0|222222'
+let cragSelectedIcon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+crag+'|5682a0|222222'
 
 	
 function initMap() {
@@ -118,7 +120,7 @@ function initMap() {
         new google.maps.Point(12, 35));
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
+        zoom: 10,
         center: initialCtr,
         mapTypeControl:false,
         streetViewControl: false,

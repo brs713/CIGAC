@@ -672,16 +672,28 @@ $(document).ready(function(){
 /*---------------------------------------v-v-v-LOC-FILTERS-v-v-v------^-^-^-CAL-FILTERS-^-^-^-----------------------------------------------------------*/
  
     let setHover = function(index) {
+//    	if (!$('.loc:nth-child('+(index + 1)+')').hasClass('selected')) {  // redundant, but cool - caught by $('.loc').hover()
+	    	if (iconTypes[index]) {
+	    		markerNames[index].setIcon(gymHoverIcon)        		 
+	    	}
+	    	else {
+	    		markerNames[index].setIcon(cragHoverIcon)
+	    	}
+	    	markerNames[index].setZIndex(1);
+//    	}
+    }
+
+    let setSelected = function(index) {
     	if (iconTypes[index]) {
-    		markerNames[index].setIcon(gymHoverIcon)        		 
+    		markerNames[index].setIcon(gymSelectedIcon)        		 
     	}
     	else {
-    		markerNames[index].setIcon(cragHoverIcon)
+    		markerNames[index].setIcon(cragSelectedIcon)
     	}
-    	markerNames[index].setZIndex(100);
+    	markerNames[index].setZIndex(2);
     }
     
-    let clearHover = function(index) {
+    let resetMarker = function(index) {
     	if (iconTypes[index]) {
     		markerNames[index].setIcon(gymIcon)        		 
     	}
@@ -691,29 +703,42 @@ $(document).ready(function(){
     	markerNames[index].setZIndex(0);
     }
 
+    let center = function (latitude, longitude) {
+    	map.setCenter({
+    		lat : latitude,
+			lng : longitude
+		});
+	}
+
+    
     $('.loc').hover(function(){
-    	console.log($(this).text())
-    	let idx = $(this).index()
-    	setHover(idx)
+    	if (!$(this).hasClass('selected')) {
+    		let idx = $(this).index()
+    		setHover(idx)
+    	}
     }, function(){
     	if (!$(this).hasClass('selected')) {
     		let idx = $(this).index()
-    		clearHover(idx)
+    		resetMarker(idx)
     	}
     })
 
 
     $('.loc').click(function(){
     	let idx = $(this).index()
-    	setHover(idx);
+    	setSelected(idx);
     	let prevElemIndex = $('.selected').index()
     	if (prevElemIndex !== -1) {
-    		clearHover(prevElemIndex)
+    		resetMarker(prevElemIndex)
     	}
     	$('.selected').removeClass('selected')
     	$('.location').addClass('hidden')
     	$(this).addClass('selected')
-    	$('#location'+idx).removeClass('hidden')
+    	let mainSelection = $('#location'+idx)
+    	mainSelection.removeClass('hidden')
+    	let latitude = parseFloat(mainSelection.find('.lat').text(), 10)
+    	let longitude = parseFloat(mainSelection.find('.lng').text(), 10)
+    	center(latitude, longitude)
     })
 
     
