@@ -6,30 +6,63 @@
 
 	<div class="row">
 		<div class="col-xs-12">
-			<form id="loc-input-form" method="post">
-				<button>Gym / Crag switch</button>
-				<div th:if="${isGym} == true">
-				
-				
+			<form id="loc-input-form" method="post" class="hidden">
+				<div id="gym-or-crag"><span class="add-this-type">Add A Crag:</span><span class="hidden">Add A Gym:</span>&nbsp;<p>(click to change)</p></div>
+				<div class="gym-input add-this-type">
+					<input id="gym-loc-name" name="loc-name" style="display: none"></input>
+					<input id="gym-loc-lat" name="loc-lat" style="display: none"></input>
+					<input id="gym-loc-lng" name="loc-lng" style="display: none"></input>
+					<input id="gym-is-gym" name="is-gym" style="display: none"></input>
+					<input id="gym-loc-postalAddress" name="loc-address" style="display: none"></input>
+					<input id="gym-loc-city" name="loc-city" style="display: none"></input>
+					<input id="gym-loc-state" name="loc-state" style="display: none"></input>
+					<input id="gym-loc-zip" name="loc-zip" style="display: none"></input>
+					<input id="gym-loc-site" name="loc-site" style="display: none"></input>
+					<input id="gym-loc-phone" name="loc-phone" style="display: none"></input>
+
+					<h3>Steps For Inserting A New Gym:</h3>
+					<p>1) Go to <a href="https://maps.google.com">Google Maps</a>.</p>
+					<p>2) Find the gym you want to add.</p>
+					<p>3) On the location detail on the left, drag your mouse pointer from the upper left corner of the gym's name to just below the phone number field.</p>
+					<img class="img-instruct" src="/img/gmaploc.png"/>
+					<p>4) Copy the selection and paste it into the text box below.  You should see the gym's website &amp; phone number (if those were available to copy).</p>
+					<textarea id="gm-user-copy"></textarea>
+					<p>5) Now we need the latitude &amp; longitude.  Right click on the point of the map pin and select "What's here?" from the menu options shown.</p>
+					<img class="img-instruct" src="/img/gm-latlng-copy0.png"/>
+					<p>6) At the bottom of the screen, the coordinates are shown as a hyperlink.  Copy these coordinates or click the link and get them from the left menu.  Paste them into the text box below.</p>
+					<img class="img-instruct" src="/img/gm-latlng-copy1.png"/>
+					<img class="img-instruct" src="/img/gm-latlng-copy2.png"/>
+					<div class="instruct" ><input id="gm-latlng-copy"></input></div>
+					<p>7)&nbsp;&nbsp;  
+						<button id="submit-gym" type="submit">Submit &amp; Climb!</button>
+					</p>
 				</div>
 				
-				<div th:if="${isGym} != true">
-					<h3>Steps For Inserting A New Climbing Location:</h3>
+				<div class="crag-input hidden">
+					<input id="crag-loc-name" name="loc-name" style="display: none"></input>
+					<input id="crag-loc-lat" name="loc-lat" style="display: none"></input>
+					<input id="crag-loc-lng" name="loc-lng" style="display: none"></input>
+					<input id="crag-is-gym" name="is-gym" style="display: none"></input>
+
+					<h3>Steps For Inserting A New Crag:</h3>
 					<p>1) Go to <a href="https://www.mountainproject.com/scripts/Search">Mountain Project</a>'s Advanced Search page.</p>
-					<img src="/img/mpsearch.png"/>
 					<p>2) Change "Search Everything" to "Areas."</p>
+					<img class="img-instruct" src="/img/mpsearch.png"/>
 					<p>3) Enter the location name into the search field and click the magnifying glass.</p>
 					<p class="subtext">You will redirected to:
-					<br/>  a) the Mountain Project page for that location - (if so, skip to step 5.)
-					<br/> b) a list of results.
-					<br/>4) Select your crag.</p>
-					<img src="/img/mplocation.png"/>
+					<br/> <span>a) the Mountain Project page for that location - (if so, skip to step 5.)</span>
+					<br/> <span>b) a list of results.</span></p>
+					<br/>4) Select your crag.
 					<p>5) On the location's main page, drag your mouse pointer from the upper left corner of the crag's name into the image box on the right.</p>
+					<img class="img-instruct" src="/img/mplocation.png"/>
 					<p>6) Copy the selection and paste it into the text box below.  You should see the word "Event" pasted in.</p>
 					<textarea id="mp-user-copy"></textarea>
-					<button type="submit">7) Submit & Climb!</button><
+					<p>7)&nbsp;&nbsp;  
+						<button id="submit-crag" type="submit">Submit &amp; Climb!</button>
+					</p>
 				</div>
 			</form>	
+			<div id="loc-error" class="hidden"><span class="text-danger"></span></div>
 		</div>
 	</div>
 

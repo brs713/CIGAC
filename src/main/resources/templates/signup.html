@@ -10,36 +10,42 @@
 	<thblock th:replace="template :: header"></thblock>
 
 	<div class="container">
-		<div class="wrap">
-			<div class="center">
+		<div class="row">
+			<div class="col-xs-4"></div>
+			<div class="col-xs-4">
+
 
 				<form method="post">
 
 					<h6>Note: All Fields Required</h6>
+					<div class="center">
+						<label for="name" class="control-label">UserID:</label> <br /> <input
+							type="text" name="username" th:value="${name}"
+							class="form-control" />&nbsp;&nbsp;<span
+							class="text-danger error" th:text="${usrError}"></span> <br />
+						<p class="text-warning info" th:text="${usrGuideLength}"></p>
+						<p class="text-warning info" th:text="${usrGuideAllowed}"></p>
 
-					<label for="name">UserID:</label> <br /> <input type="text"
-						name="username" th:value="${name}" />&nbsp;&nbsp;<span
-						class="error" th:text="${usrError}"></span> <br />
-					<p class="info" th:text="${usrGuideLength}"></p>
-					<p class="info" th:text="${usrGuideAllowed}"></p>
+						<label for="name" class="control-label">Password:</label> <br />
+						<input type="password" name="password" class="form-control" />&nbsp;&nbsp;<span
+							class="text-danger error" th:attr="class=${errClass}"
+							th:text="${pwdError}"></span> <br />
+						<p class="text-warning info" th:text="${pwdGuide}"></p>
 
-					<label for="name">Password:</label> <br /> <input type="password"
-						name="password" />&nbsp;&nbsp;<span th:attr="class=${errClass}"
-						th:text="${pwdError}"></span> <br />
-					<p class="info" th:text="${pwdGuide}"></p>
-
-					<label for="name">Confirm Password:</label> <br /> <input
-						type="password" name="confPassword" />&nbsp;&nbsp;<span
-						class="error" th:text="${cnfError}"></span>
-					<br />
-					<label for="name">E-mail Address:</label> <br /> <input type="text"
-						name="email" th:value="${email}" />&nbsp;&nbsp;<span class="error"
-						th:text="${emlError}"></span> <br />
-					<button type="submit">Sign Up!</button>
-
-
+						<label for="name" class="control-label">Confirm Password:</label>
+						<br /> <input type="password" name="confPassword"
+							class="form-control" />&nbsp;&nbsp;<span
+							class="text-danger error" th:text="${cnfError}"></span> <br /> <label
+							for="name" class="control-label">E-mail Address:</label> <br />
+						<input type="text" name="email" th:value="${email}"
+							class="form-control" />&nbsp;&nbsp;<span
+							class="text-danger error" th:text="${emlError}"></span> <br />
+						<button class="btn btn-primary" type="submit">Sign Up!</button>
+					</div>
 				</form>
+
 			</div>
+			<div class="col-xs-4"></div>
 		</div>
 	</div>
 

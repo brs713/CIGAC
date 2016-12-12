@@ -217,7 +217,7 @@ TODO: //Validate mins are less than maxes.
  		
  		model.addAttribute("div", m);
 		
-		return "comm";
+		return "-comm";
 	}
 	
 	
@@ -229,7 +229,7 @@ TODO: //Validate mins are less than maxes.
 		User user = getUserFromSession(thisSession);
 		model.addAttribute("user_logged", user.getUsername());
 		
-		return "comm";
+		return "-comm";
 	}
 
 

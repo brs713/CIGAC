@@ -7,15 +7,17 @@
 
 	<thblock th:replace="template :: header"></thblock>
 
+	<div id="user" th:text="${user_logged}" style="display: none"></div>
 	<div id="filter-modal" class="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-sm" role="document">
 			<div id="filter-modal-content" class="modal-content">
 				<h4></h4>
 				<section id="x" class="my-calendar-control"></section>
 				<input id="selected-date" name="selected-date"
-					style="display: none;"></input> <span>
-					<button id="btn-after" class="hidden">afilter</button>
-					<button id="btn-before" class="hidden">bfilter</button>
+					style="display: none;"></input> <span class="center">
+					
+					<button id="btn-after" class="hidden">apply filter</button>
+					<button id="btn-before" class="hidden">apply filter</button>
 				</span>
 			</div>
 		</div>
@@ -24,14 +26,22 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<div id="filter-bar">
-					<span>applied filters:</span>
+				<div id="filter-bar" class="filter-bars">
+					<span>schedule filters:</span>
 				</div>
 			</div>
 		</div>
-		<hr />
 		<div class="row">
-			<div class="col-xs-3">
+			<div class="col-xs-12">
+				<div id="climber-filter-bar" class="filter-bars hidden">
+					<span>profile filters:</span>
+				</div>
+			</div>
+		</div>
+		
+
+		<div class="row">
+			<div class="col-xs-3 left">
 
 				<div class="row">
 					<div class="col-xs-12">
@@ -122,7 +132,7 @@
 								</select>
 							</div>
 						</div>
-						<div id="climber-filter">
+a						<div id="climber-filter">
 							<label>who</label>
 							<div>
 								<select name="climber-list">
@@ -142,7 +152,7 @@
 
 				<div id="loc-filters" class="row search-filters hidden">
 					<div class="col-xs-12">
-						<div class="row">
+<!-- 						<div class="row">
 							<div class="col-xs-6">
 								<span id="gyms" class="loc-btn pressed">gyms</span>
 							</div>
@@ -150,24 +160,20 @@
 								<span id="crags" class="loc-btn">crags</span>
 							</div>
 						</div>
-
+ -->
+						<div>
+							<p>Don't see yours?</p>
+							<div id="add-loc-btn"><span class="glyphicon glyphicon-plus"></span>Add A Location!</div>
+						</div>
 						<hr />
 
 						<div class="row">
 							<div class="col-xs-12">
 
 								<section th:each="loc,iterStat : ${locs}"
-									th:id="'loc'+${iterStat.count}" class="loc" style="border: 1px solid #eeeeee;">
+									th:id="'loc'+${iterStat.count}" class="loc">
 									<p th:text="${loc.locName}"></p>
 								</section>
-
-<!-- 								<section th:each="loc,iterStat : ${locs}"
-									th:id="'loc'+${iterStat.count}" class="loc"
-									th:onmouseover="'hover('+${iterStat.count}+')'" th:onmouseout="'out'+${iterStat.count}+')'"
-									style="border: 1px solid #eeeeee;">
-									<p th:text="${loc.locName}"></p>
-								</section>
- -->
 
 							</div>
 						</div>
@@ -178,10 +184,60 @@
 
 				<div id="ppl-filters" class="row search-filters hidden">
 					<div class="col-xs-12">
-
 						<div>
 							<h4>Filters</h4>
 						</div>
+						<div class="row">
+<!-- 							<div>
+								Clear all filters
+							</div>
+ -->						</div>
+						
+
+						<div id="profile-filter">
+
+							<label>who</label>
+							<div>
+								<select name="profile-list">
+									<option value="0">include:</option>
+									<option th:each="user,iterStat : ${users}"
+										th:value="${iterStat.count}" th:text="${user.username}" />
+								</select>
+
+							</div>
+						
+						</div>	
+						<div id="gym-filter">
+							
+							<label>home gym</label>
+							<div>
+								<select name="home-gym-list">
+									<option value="0">include:</option>
+									<option th:each="loc,iterStat : ${locs}" th:if="(${loc.gym} == true)"
+										th:value="${iterStat.count}" th:text="${loc.locName}" />
+								</select>
+							</div>
+
+
+						</div>
+						
+<!-- 						<div id="lead-min-filter">
+							<label>how long</label>
+							<div id="lead-min-slider"></div>
+							<div>
+								<span>Min:</span> <span> <input id="lead-min-min"
+									type="text" value="" class="hidden"></input>
+								</span>
+							</div>
+							<div>
+								<span>Max:</span> <span> <input id="lead-min-max"
+									type="text" value="" class="hidden"></input>
+								</span>
+							</div>
+						</div>
+ -->						
+
+
 					</div>
 				</div>
 				<!-- end #ppl-filters -->
@@ -197,10 +253,10 @@
 
  -->
 
-			<div class="col-xs-9">
+			<div class="col-xs-9 main">
 
 
-				<div id="cal-main" class="row search-main">
+				<div id="cal-main" class="row search-main main-row">
 					<!-- Calendar -->
 					<div class="my-calendar-control" id="climbs-calendar"></div>
 					<div class="row">
@@ -219,7 +275,7 @@
 					<!-- Locations -->
 					<div class="col-xs-12">
 
-						<div class="row">
+						<div class="row main-row">
 							<div class="col-xs-12">
 						
 								<div id="mapwrap">
@@ -233,10 +289,9 @@
 					<script async="async" defer="defer"	src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCLNp25pNgiR7w4RvxOwS8ZF212b_j6UDw&amp;callback=initMap'></script>
 
 
-						<div class="row">
+						<div class="row main-row">
 							<div class="col-xs-12">
-								<section th:each="location,iterStat : ${locs}" th:id="'location'+(${iterStat.count} - 1)" class="location hidden"
-									style="border: 1px solid #eeeeee;">
+								<section th:each="location,iterStat : ${locs}" th:id="'location'+(${iterStat.count} - 1)" class="location hidden">
 									<p class="loc-name " th:text="${location.locName}"></p>
 									<p class="lat hidden" th:text="${location.latitude}"></p>
 									<p class="lng hidden" th:text="${location.longitude}"></p>
@@ -252,13 +307,34 @@
 								</section>
 							</div>
 						</div>
+						<thblock th:replace="loc-input :: loc-input"></thblock>
 					</div>
 				</div>
 
 
 				<div id="ppl-main" class="row search-main hidden">
 					<!-- Climbers -->
-
+					<div class="col-xs-12">
+						<div class="row main-row">
+							<div class="col-xs-12">
+								<section th:each="profile,iterStat : ${profiles}" th:id="'profile'+(${iterStat.count} - 1)" class="profile">
+									<p class="name" th:text="${profile.user.getUsername()}"></p>
+									<p class="homegym" th:text="${profile.homeGym}"></p>
+									<p class="lead-min" th:text="${profile.leadPracticeMin}"></p>
+									<p class="lead-max" th:text="${profile.leadPracticeMax}"></p>
+									<p class="tr-min" th:text="${profile.topropePracticeMin}"></p>
+									<p class="tr-max" th:text="${profile.topropePracticeMax}"></p>
+									<p class="boulder-min" th:text="${profile.boulderPracticeMin}"></p>
+									<p class="boulder-max" th:text="${profile.boulderPracticeMax}"></p>
+								</section>
+								
+								<section th:each="user,iterStat : ${users}" th:id="'prof'+${iterStat.count}" class="prof hidden">
+									<p th:text="${user.username}"></p>
+								</section>
+								
+							</div>
+						</div>
+					</div>
 				</div>
 
 

@@ -23,10 +23,29 @@ import com.bradlav.models.User;
 public class MainController extends AbstractController {
 
 	
+//	/**
+//	  ERROR - Get
+//	*/
+//	@RequestMapping(value = "/error", method = RequestMethod.GET)
+//  String error(HttpServletRequest request, Model model){
+//		return "error";
+//	}
+	
 	/**
 	  HOMEPAGE - get
 	*/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String splash(HttpServletRequest request, Model model){
+	
+		return "-Splash";
+		
+	}
+	
+	
+	/**
+	  HOMEPAGE - get
+	*/
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String homeGet(HttpServletRequest request, Model model){
 		
 //		Loc loc = new Loc();
@@ -128,7 +147,7 @@ public class MainController extends AbstractController {
 	/**
 	  HOMEPAGE - post
 	*/
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/home", method = RequestMethod.POST)
 	public String homePost(HttpServletRequest request, Model model){
 		
 		// get this session's user
@@ -234,7 +253,7 @@ public class MainController extends AbstractController {
 		}
 		
 		for (ClimbFormatter climb : climbs) {
-			System.out.println("\n\t" + climb.getStartLong() +"   " +climb.getEndLong() );
+//			System.out.println("\n\t" + climb.getStartLong() +"   " +climb.getEndLong() );
 		}
 		
 		//pass in data
@@ -261,28 +280,71 @@ public class MainController extends AbstractController {
 		User user = getUserFromSession(thisSession);
 		model.addAttribute("user_logged", user.getUsername());		
 
-		// get data
-		boolean isAccepted = Boolean.parseBoolean(request.getParameter("isAccepted"));
-		int climbId = Integer.parseInt(request.getParameter("climbId"));
-		System.out.println("\n\taccepted is " + isAccepted + "   climbId is " + climbId + "\n");
+		
+		String gym = request.getParameter("is-gym");
+		System.out.println("\n\n\t\t\t This is the value of gym: "+gym);
 
-		// find the referenced climb
-		Climb climb = climbDao.findById(climbId);
 		
-		// update db
-		climb.setAccepted(isAccepted);
-		climb.setUserAcceptor(user);
-		climbDao.save(climb);
+		if (gym != null && gym != "") {		// not sure which
 		
-		// message the user (Tell them they're climb has been accepted.)
-		Comm acceptance = new Comm();
-		acceptance.setClimb(climb);
-		acceptance.setFromUser(user);
-		acceptance.setToUser(climb.getUserInitiate());
-		Date now = new Date();
-		acceptance.setMessageCreated(now);
-		commDao.save(acceptance);
-		
+			boolean isGym = Boolean.parseBoolean(gym);
+			String locName = request.getParameter("loc-name");
+			double latitude = Double.parseDouble(request.getParameter("loc-lat"));
+			double longitude = Double.parseDouble(request.getParameter("loc-lng"));
+
+			Loc loc = new Loc();
+
+			loc.setLocName(locName);
+			loc.setLatitude(latitude);
+			loc.setLongitude(longitude);
+			loc.setGym(isGym);
+
+			if (isGym) {
+				
+				String postalAddress = request.getParameter("loc-address");
+				String city = request.getParameter("loc-city");
+				String state = request.getParameter("loc-state");
+				int zip = Integer.parseInt(request.getParameter("loc-zip"));
+				String phone = request.getParameter("loc-phone");
+				String webAddress = request.getParameter("loc-site");
+				
+				loc.setPostalAddress(postalAddress);
+				loc.setCity(city);
+				loc.setState(state);
+				loc.setZip(zip);
+				loc.setPhone(phone);
+				loc.setWebAddress(webAddress);
+
+			}
+			
+			locDao.save(loc);
+		}
+
+		else {
+			// get data
+			
+			
+			boolean isAccepted = Boolean.parseBoolean(request.getParameter("isAccepted"));
+			int climbId = Integer.parseInt(request.getParameter("climbId"));
+			System.out.println("\n\taccepted is " + isAccepted + "   climbId is " + climbId + "\n");
+
+			// find the referenced climb
+			Climb climb = climbDao.findById(climbId);
+
+			// update db
+			climb.setAccepted(isAccepted);
+			climb.setUserAcceptor(user);
+			climbDao.save(climb);
+
+			// message the user (Tell them they're climb has been accepted.)
+			Comm acceptance = new Comm();
+			acceptance.setClimb(climb);
+			acceptance.setFromUser(user);
+			acceptance.setToUser(climb.getUserInitiate());
+			Date now = new Date();
+			acceptance.setMessageCreated(now);
+			commDao.save(acceptance);
+		}
        return "redirect:/search";
     }	
 }

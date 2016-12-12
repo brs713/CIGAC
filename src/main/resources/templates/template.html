@@ -6,13 +6,17 @@
 <meta content="utf-8" http-equiv="encoding" />
 
 
-<!-- Latest compiled JavaScript - JQuery, Bootstrap -->
+<!-- <<<<<<<<<<<<<<<  JQUERY  >>>>>>>>>>>>>>> -->
 <!-- <script src="https://code.jquery.com/jquery-3.1.1.js"
 	integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
 	crossorigin="anonymous"></script> -->
 	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
 
+<script src="/js/jquery311min.js" th:href="@{js/jquery311min.js}"></script>
+
+
+<!-- <<<<<<<<<<<<<<<  MOMENT.JS  >>>>>>>>>>>>>>> -->
 <!-- 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment-with-locales.js"
@@ -21,19 +25,24 @@
  -->
 <script src="/js/moment.js" th:href="@{js/moment.js}"></script>
 
+
+<!-- <<<<<<<<<<<<<<<  BOOTSTRAP.JS  >>>>>>>>>>>>>>> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+
+<!-- <<<<<<<<<<<<<<<  JQUERY-UI.JS  >>>>>>>>>>>>>>> -->
 <!-- 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
  -->
+<script src="/js/jquery-ui.min.js" th:href="@{js/jquery-ui.min.js}"></script>
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
 
 <!-- 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
  -->
-<!--  jQuery UI -->
-<script src="/js/jquery-ui.min.js" th:href="@{js/jquery-ui.min.js}"></script>
+<!-- <<<<<<<<<<<<<<<  CSS  >>>>>>>>>>>>>>> -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 <link rel="stylesheet" href="/css/jquery-ui.min.css" th:href="@{css/jquery-ui.min.css}"></link>
 <link rel="stylesheet" href="/css/jquery-ui.structure.min.css" th:href="@{css/jquery-ui.structure.min.css}"></link>
 <link rel="stylesheet" href="/css/jquery-ui.theme.min.css" th:href="@{css/jquery-ui.theme.min.css}"></link>
@@ -59,7 +68,7 @@
 		<div id="nav-wrap" class="container-fluid">
 			<div id="nav">
 				<ul id="left-nav-ul">
-					<li class="nav-li"><a href="/" class="nav-link"><span
+					<li class="nav-li"><a href="/home" class="nav-link"><span
 							class="glyphicon glyphicon-calendar"></span></a></li>
 					<li class="nav-li"><a href="search" class="nav-link"><span
 							class="glyphicon glyphicon-search"></span></a></li>
@@ -67,8 +76,7 @@
 
 				<ul id="right-nav-ul">
 					<li class="nav-li"><button type="button" class="nav-link"
-							data-toggle="modal" data-target=".post"
-							style="border: 0; background-color: inherit; color: inherit;">
+							data-toggle="modal" data-target=".post">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button></li>
 					<li class="nav-li"><a href="comm" class="nav-link"><span
